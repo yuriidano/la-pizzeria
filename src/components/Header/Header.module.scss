@@ -1,0 +1,15 @@
+
+.button {
+    position: relative;
+
+     &::before {
+        content: '';
+        position: absolute;
+        width: 1px;
+        height: 25px;
+        background-color: #FFFFFF40;
+        top: 9px;
+        left: 50%;
+        transform: translate(50%, 0);
+     }
+}
