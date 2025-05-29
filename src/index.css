@@ -67,7 +67,7 @@ h1, h2, h3, h4, h5, h6 {
   /*-------------@theme-----------*/
 
 @theme {
-  --breakpoint-xl: 75rem; /* 1200px */  
+  --breakpoint-xl: 85rem; /* 1360px */  
   --breakpoint-lg: 62rem; /* 992px  */ 
   --breakpoint-md: 48rem; /* 768px  */ 
   --breakpoint-sm: 30rem; /* 480px  */ 
@@ -82,7 +82,7 @@ h1, h2, h3, h4, h5, h6 {
 
 }
 /* 
-max-xl	@media (width < 1200px 75rem)
+max-xl	@media (width < 1360px 85rem)
 max-lg	@media (width < 992px 62rem)
 max-md	@media (width < 768px 48rem)
 max-sm	@media (width < 480px 30rem)

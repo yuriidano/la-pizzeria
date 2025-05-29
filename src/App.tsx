@@ -1,6 +1,7 @@
-
 import './App.css'
 import { Header } from './components/Header/Header'
+import Home from './pages/Home'
+
 
  const App = () => {
 
@@ -9,7 +10,7 @@ import { Header } from './components/Header/Header'
              <div className='container'>
                 <Header />
                  <main className='flex-grow-1 flex-shrink-1 flex-basis-full'>
-
+                    <Home />
                  </main>
              </div>
          </div>
