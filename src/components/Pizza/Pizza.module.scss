@@ -1,0 +1,25 @@
+
+
+.button {
+    color: #FE5F1E;
+    font-weight: bold;
+    transition: all 0.3s ease 0s;
+    &:hover {
+        background-color: #FE5F1E;
+        color: white;
+    }
+}
+
+.countBody {
+    background-color: #FE5F1E;
+    transition: all 0.3s ease 0s;
+}
+
+.button:hover .countBody {
+    background-color: white;
+}
+
+
+.button:hover .count {
+    color: #FE5F1E;
+}
