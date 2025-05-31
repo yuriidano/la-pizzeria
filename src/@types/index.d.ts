@@ -9,3 +9,6 @@ export type PizzaType = {
     category: number,
     rating: number
 }
+
+
+export type ActiveSortType = {name: string, sortProperty: string};
