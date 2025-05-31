@@ -1,5 +1,7 @@
 import classNames from "classnames"
 import stylles from './Pizza.module.scss'
+import { useState } from "react"
+
 
 interface Props {
     id: number,
@@ -15,6 +17,12 @@ interface Props {
 
 export const Pizza = ({category, id, imageUrl, price, rating, sizes, title, types}: Props) => {
 
+    const [activeSize, setActiveSize] = useState<number | null>(null);
+    const typesPizzes = ['thin', 'traditional'];
+    const [activeType, setActiveType] = useState<number | null>(null);
+
+
+
 
     return (
         <div className="grow-1 shrink-1 max-w-80 flex flex-col items-center">
@@ -22,16 +30,22 @@ export const Pizza = ({category, id, imageUrl, price, rating, sizes, title, type
                 <img className="max-w-full mb-5.5" src={imageUrl} alt="pizza" />
             </div>
             <div className="text-xl font-extrabold !mb-5.5">{title}</div>
-            <div className="bg-gray-100 !p-2 rounded-xl !mb-4">
-                <div className="flex gap-x-1.5 !mb-2">
-                    <button className="min-h-8 min-w-33 rounded-md hover:bg-white duration-300">thin</button>
-                    <button className="min-h-8 min-w-33 rounded-md hover:bg-white duration-300">traditional</button>
+            <div className="bg-gray-100 !p-2 rounded-xl !mb-4  min-w-71.5">
+                <div className="flex gap-x-1.5 !mb-2  min-w-63">
+                    {
+                    types.map(type => <button key={type} onClick={() => setActiveType(type)} 
+                    className={classNames("min-h-8 min-w-33 grow-1 rounded-md hover:bg-white duration-300", {'bg-white': type === activeType})}>
+                    {typesPizzes[type]}</button>)
+                    }
                 </div>
 
                 <div className="flex gap-x-1.5">
-                    <button className="min-h-8 min-w-21.5 rounded-md hover:bg-white duration-300">26 см.</button>
-                    <button className="min-h-8 min-w-21.5 rounded-md hover:bg-white duration-300">30 см.</button>
-                    <button className="min-h-8 min-w-21.5 rounded-md hover:bg-white duration-300">40 см.</button>
+                    {
+                        sizes.map((size, index) =>
+                            <button key={index} onClick={() => setActiveSize(size)}
+                                className={classNames("min-h-8 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white': size === activeSize })}>
+                                {size} sm.</button>)
+                    }
                 </div>
             </div>
             <div className="flex justify-between items-center gap-x-23 !pl-1">

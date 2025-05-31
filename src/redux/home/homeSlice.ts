@@ -2,11 +2,11 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 
 
 interface HomeState {
-    activeCategory: number
+    activeCategory: number,
 };
 
 const initialState:HomeState = {
-    activeCategory: 0
+    activeCategory: 0,
 };
 
 const homeSlice = createSlice({
@@ -15,7 +15,7 @@ const homeSlice = createSlice({
     reducers: {
         setActiveCategory(state, action: PayloadAction<number>) {
             state.activeCategory = action.payload
-        }
+        },
     }
 });
 
