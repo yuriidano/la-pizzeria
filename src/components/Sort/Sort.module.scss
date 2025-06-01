@@ -1,0 +1,24 @@
+
+
+.popap {
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.1s ease 0s;
+}
+
+.popanActive {
+    transition: all 0.1s ease 0s;
+    visibility: visible;
+    opacity: 1;
+}
+
+
+.arrowIcon {
+    transform: rotate(-90deg);
+     transition: all 0.1s ease 0s;
+}
+
+.arrowIconActive {
+    transform: rotate(90deg);
+     transition: all 0.1s ease 0s;
+}

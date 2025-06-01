@@ -3,21 +3,27 @@ import { Category } from "../components/Category/Category";
 import { Pizza } from "../components/Pizza/Pizza";
 import { SkeletonPizza } from "../components/SkeletonPizza/SkeletonPizza";
 import { Sort } from "../components/Sort/Sort";
-import { selectActiveCategory } from "../redux/home/homeSelectors";
+import { selectActiveCategory, selectActiveSort, selectSearch } from "../redux/home/homeSelectors";
 import { useAppSelector } from "../redux/store";
 
 
 const Home = () => {
     const activeCategory = useAppSelector(selectActiveCategory);
+    const activeSort = useAppSelector(selectActiveSort);
+    const searchQuery = useAppSelector(selectSearch);
 
-    const { isLoading, data } = useGetPizzasQuery({ activeCategory });
+    const order = activeSort?.name.includes('asc') ? 'asc' : 'desc';
+    const sortQuery = activeSort?.sortProperty || '';
 
-    const pizzasItems = data?.map(pizza => <Pizza {...pizza} />);
+
+    const { isLoading, data } = useGetPizzasQuery({ activeCategory, sortQuery, order, searchQuery });
+
+    const pizzasItems = data?.map(pizza => <Pizza key={pizza.id} {...pizza} />);
     const skeleton = [...new Array(10)].map((_, index) => <SkeletonPizza key={index} />)
 
     return (
         <div className="!pt-8 !pb-24">
-            <div className="flex items-center gap-x-94 !mb-9">
+            <div className="flex items-center justify-between !mb-9">
                 <div><Category /></div>
                 <div><Sort /></div>
             </div>

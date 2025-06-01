@@ -10,3 +10,8 @@ export const selectActiveCategory = (state: RootState) => {
 export const selectActiveSort = (state: RootState) => {
     return state.homeReducer.activeSort
 };
+
+
+export const selectSearch = (state: RootState) => {
+    return state.homeReducer.search
+};

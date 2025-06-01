@@ -6,11 +6,12 @@ export const pizzaApi = createApi({
     reducerPath: 'pizzaApi',
     baseQuery: fetchBaseQuery({baseUrl: 'https://67e4282e2ae442db76d34bc3.mockapi.io/'}),
     endpoints: (builder) => ({
-        getPizzas: builder.query<PizzaType[], {activeCategory: number}>({
-            query: ({activeCategory}) => {
-                const catecoryQuery = activeCategory !== 0 ? activeCategory : '';
+        getPizzas: builder.query<PizzaType[], {activeCategory: number, sortQuery: string, order: string, searchQuery: string}>({
+            query: ({activeCategory, sortQuery, order, searchQuery}) => {
+                // const catecoryQuery = activeCategory !== 0 ? activeCategory : '';
+                // category=${catecoryQuery}&
                 return (
-                    `items?category=${catecoryQuery}`
+                    `items?sortBy=${sortQuery}&order=${order}&search=${searchQuery}`
                 )
             }
         })
