@@ -10,7 +10,7 @@ import stylles from './Sort.module.scss'
 export const Sort = () => {
     const dispatch = useAppDispatch();
     const activeSort = useAppSelector(selectActiveSort);
-    const [isOpenPopap, setIsOpenPopap] = useState<boolean>(true);
+    const [isOpenPopap, setIsOpenPopap] = useState<boolean>(false);
 
     const activeSortHandler = (sort: ActiveSortType) => {
         dispatch(setActiveSort(sort));

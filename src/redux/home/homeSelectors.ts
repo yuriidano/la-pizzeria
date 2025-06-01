@@ -15,3 +15,8 @@ export const selectActiveSort = (state: RootState) => {
 export const selectSearch = (state: RootState) => {
     return state.homeReducer.search
 };
+
+
+export const selectHome = (state: RootState) => {
+    return state.homeReducer
+};

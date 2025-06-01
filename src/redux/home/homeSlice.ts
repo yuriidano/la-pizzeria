@@ -6,13 +6,19 @@ import type { ActiveSortType } from "../../@types";
 interface HomeState {
     activeCategory: number,
     activeSort: ActiveSortType | null,
-    search: string
+    search: string,
+    limit: number,
+    currentPage: number,
+    pageCount: number
 };
 
 const initialState:HomeState = {
     activeCategory: 0,
     activeSort: { name: 'rating (asc)', sortProperty: 'rating' },
-    search: ''
+    search: '',
+    currentPage: 1,
+    limit: 4,
+    pageCount: 3
 };
 
 const homeSlice = createSlice({
@@ -27,11 +33,14 @@ const homeSlice = createSlice({
         },
         setSearch(state, action:PayloadAction<string>) {
             state.search = action.payload
+        },
+        setCurrentPage(state, action:PayloadAction<number>) {
+            state.currentPage = action.payload
         }
     }
 });
 
 
-export const { setActiveCategory, setActiveSort, setSearch } = homeSlice.actions;
+export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage } = homeSlice.actions;
 
 export default homeSlice.reducer;
