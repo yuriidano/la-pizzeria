@@ -3,17 +3,17 @@ import type { RootState } from "../store";
 
 
 export const selectActiveCategory = (state: RootState) => {
-    return state.homeReducer.activeCategory
+    return state.homeReducer.filter.activeCategory
 };
 
 
 export const selectActiveSort = (state: RootState) => {
-    return state.homeReducer.activeSort
+    return state.homeReducer.filter.activeSort
 };
 
 
 export const selectSearch = (state: RootState) => {
-    return state.homeReducer.search
+    return state.homeReducer.filter.search
 };
 
 

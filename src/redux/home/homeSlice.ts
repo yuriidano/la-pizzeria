@@ -1,22 +1,26 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ActiveSortType } from "../../@types";
 
-
+export type FilterType = {
+        activeCategory: number,
+        activeSort: ActiveSortType | null,
+        search: string,
+        currentPage: number,
+    }
 
 interface HomeState {
-    activeCategory: number,
-    activeSort: ActiveSortType | null,
-    search: string,
+    filter: FilterType,
     limit: number,
-    currentPage: number,
     pageCount: number
 };
 
-const initialState:HomeState = {
-    activeCategory: 0,
-    activeSort: { name: 'rating (asc)', sortProperty: 'rating' },
-    search: '',
-    currentPage: 1,
+const initialState: HomeState = {
+    filter: {
+        activeCategory: 0,
+        activeSort: { name: 'rating (asc)', sortProperty: 'rating' },
+        search: '',
+        currentPage: 1,
+    },
     limit: 4,
     pageCount: 3
 };
@@ -26,21 +30,24 @@ const homeSlice = createSlice({
     initialState,
     reducers: {
         setActiveCategory(state, action: PayloadAction<number>) {
-            state.activeCategory = action.payload
+            state.filter.activeCategory = action.payload
         },
         setActiveSort(state, action: PayloadAction<ActiveSortType>) {
-            state.activeSort = action.payload
+            state.filter.activeSort = action.payload
         },
         setSearch(state, action:PayloadAction<string>) {
-            state.search = action.payload
+            state.filter.search = action.payload
         },
         setCurrentPage(state, action:PayloadAction<number>) {
-            state.currentPage = action.payload
+            state.filter.currentPage = action.payload
+        },
+        setFilter(state, action:PayloadAction<FilterType>) {
+            state.filter = action.payload
         }
     }
 });
 
 
-export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage } = homeSlice.actions;
+export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter } = homeSlice.actions;
 
 export default homeSlice.reducer;

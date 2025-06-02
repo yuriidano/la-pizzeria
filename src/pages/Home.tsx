@@ -1,39 +1,76 @@
-import { useEffect, useMemo } from "react";
+import { useEffect, useRef } from "react";
 import { useGetPizzasQuery } from "../api/api";
 import { Category } from "../components/Category/Category";
 import { Pizza } from "../components/Pizza/Pizza";
 import { SkeletonPizza } from "../components/SkeletonPizza/SkeletonPizza";
 import { Sort } from "../components/Sort/Sort";
 import { selectHome } from "../redux/home/homeSelectors";
-import { setCurrentPage } from "../redux/home/homeSlice";
+import { setCurrentPage, setFilter, type FilterType } from "../redux/home/homeSlice";
 import { useAppDispatch, useAppSelector } from "../redux/store";
 import Pagination from '@mui/material/Pagination';
+import { useLocation, useNavigate } from "react-router";
+import queryString from 'query-string';
 
 const Home = () => {
     const dispatch =useAppDispatch();
-    const {activeCategory, activeSort, search, currentPage, limit, pageCount} = useAppSelector(selectHome);
+    const navigate = useNavigate();
+    const location = useLocation();
+    const isMounted = useRef(false);
+    const isQuery = useRef(false);
+    const {filter: {activeCategory, activeSort, search, currentPage}, limit, pageCount} = useAppSelector(selectHome);
+
 
     const order = activeSort?.name.includes('asc') ? 'asc' : 'desc';
     const sortQuery = activeSort?.sortProperty || '';
 
+    useEffect(() => {
+        if(location.search) {
+            const parse = queryString.parse(location.search);
 
-    const { isLoading, data } = useGetPizzasQuery({ activeCategory, sortQuery, order, search, limit, currentPage });
+            isQuery.current = true;
+
+            const parseFilter:FilterType = {
+                activeCategory: Number(parse?.activeCategory),
+                activeSort:  parse.activeSort === 'title' ? {name: 'alphabet (asc)', sortProperty: parse?.activeSort as string} : {name: parse?.activeSort as string + '(asc)', sortProperty: parse?.activeSort as string},
+                currentPage: Number(parse.currentPage),
+                search: parse.search as string ?? ''
+            }
+            dispatch(setFilter(parseFilter))
+        }
+    }, [])
+
+    const { isLoading, data } = useGetPizzasQuery({ activeCategory, sortQuery, order, search, limit, currentPage }, {skip: isQuery.current});
+            useEffect(() => {
+        isQuery.current = false;
+    }, [])
+
 
     const pizzasItems = data?.map(pizza => <Pizza key={pizza.id} {...pizza} />);
     const skeleton = [...new Array(4)].map((_, index) => <SkeletonPizza key={index} />)
 
-const tets = useMemo(() => {
-  const length = data?.length ?? 0;
-
-  if (length <= 4) return 1;
-  if (length <= 8) return 2;
-
-  return pageCount; // або Math.ceil(totalItems / limit)
-}, [data, pageCount]);
 
     const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setCurrentPage(value))
     };
+
+    type queryType = {activeCategory?: number, activeSort?: string, search?: string, currentPage?: number};
+    const query:queryType = {};
+
+    useEffect(() => {
+        if (isMounted.current) {
+            query.activeCategory = activeCategory;
+            query.activeSort = sortQuery;
+            query.currentPage = currentPage;
+            navigate({
+                pathname: '/',
+                search: queryString.stringify(query)
+            })
+        }
+
+        isMounted.current = true;
+
+    }, [activeCategory, sortQuery, search, currentPage])
+
 
     return (
         <div className="!pt-8 !pb-17">
