@@ -43,14 +43,15 @@ export const HeaderForm = () => {
     return (    
         <form className="relative">
             <input {...register('search')} placeholder="search..."
-            className="min-h-10 !border !border-gray-200 rounded-md !px-9 min-w-80 text-gray-600"
+            className="min-h-[clamp(25px,17.593px+2.315vw,40px)] !border !border-gray-200 rounded-md !px-9 !max-w-[clamp(140px,-68.421px+26.316vw,300px)] text-gray-600"
             ref={(e) => {
                 inputRef.current = e;
                 register('search').ref(e)
             }} />
-            <SearchIcon className="text-gray-400 absolute left-2 top-2.5" />
-            {activeReset && <span onClick={resetInputHandler}><CloseIcon 
-            className={classNames("absolute right-2 top-2 cursor-pointer", stylles.resetIcon)}/></span>}
+            <SearchIcon className="!h-5 !w-5 text-gray-400 absolute left-5 top-1/2 -translate-1/2 ss-390:!w-6 ss-390:!h-6" />
+            {activeReset && 
+            <span onClick={resetInputHandler}><CloseIcon 
+            className={classNames("absolute right-0 top-1/2 -translate-1/2 cursor-pointer", stylles.resetIcon)}/></span>}
         </form>
     )
 }

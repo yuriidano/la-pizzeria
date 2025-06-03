@@ -67,11 +67,13 @@ h1, h2, h3, h4, h5, h6 {
   /*-------------@theme-----------*/
 
 @theme {
-  --breakpoint-xl: 85rem; /* 1360px */  
-  --breakpoint-lg: 62rem; /* 992px  */ 
-  --breakpoint-md: 48rem; /* 768px  */ 
-  --breakpoint-sm: 30rem; /* 480px  */ 
-  --breakpoint-ss: 26rem; /* 416px  */ 
+  --breakpoint-ss-320: 20rem; 
+  --breakpoint-ss-350: 21.875rem; 
+  --breakpoint-ss-390: 24.375rem; 
+  --breakpoint-ss-420: 26.25rem; 
+  --breakpoint-ss-480: 30rem; 
+  --breakpoint-ss-550: 34.375rem; 
+  --breakpoint-ss-600: 37.5rem; 
 
   --color-my-canvas: #FFDF8C;
   --color-my-orange: #FE5F1E;
@@ -79,12 +81,4 @@ h1, h2, h3, h4, h5, h6 {
   --color-my-orange-text: #EB5A1E;
   --color-my-light-black-text: #EB5A1E;
   --color-my-gray-text: #777777;
-
 }
-/* 
-max-xl	@media (width < 1360px 85rem)
-max-lg	@media (width < 992px 62rem)
-max-md	@media (width < 768px 48rem)
-max-sm	@media (width < 480px 30rem)
-max-ss	@media (width < 416px 26rem)
-*/
