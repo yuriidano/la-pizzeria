@@ -26,7 +26,7 @@ export const Pizza = ({category, id, imageUrl, price, rating, sizes, title, type
 
     return (
         <div className="grow-1 shrink-1 max-w-80 flex flex-col items-center">
-            <div className="!p-3">
+            <div className="!p-3 !pl-7">
                 <img className="max-w-full mb-5.5" src={imageUrl} alt="pizza" />
             </div>
             <div className="text-xl font-extrabold !mb-5.5">{title}</div>

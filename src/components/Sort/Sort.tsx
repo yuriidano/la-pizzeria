@@ -42,7 +42,7 @@ export const Sort = () => {
 
     return (
         <div ref={popapRef} className='relative min-w-50'>
-            <div className='flex items-center gap-x-1.5'>
+            <div className='flex items-center gap-x-1.5 md:justify-end'>
                 <span><PlayArrowIcon className={classNames(stylles.arrowIcon, {[stylles.arrowIconActive]: isOpenPopap})} /></span>
                 <div className='flex items-center gap-x-2'>
                     <span className='font-bold'>Sort by:</span>

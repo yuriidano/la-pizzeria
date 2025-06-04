@@ -18,7 +18,7 @@ const Home = () => {
     const isMounted = useRef(false);
     const isQuery = useRef(false);
     const {filter: {activeCategory, activeSort, search, currentPage}, limit, pageCount} = useAppSelector(selectHome);
-
+    const categotyItems = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed'];
 
     const order = activeSort?.name.includes('asc') ? 'asc' : 'desc';
     const sortQuery = activeSort?.sortProperty || '';
@@ -73,18 +73,18 @@ const Home = () => {
 
 
     return (
-        <div className="!pt-8 !pb-17">
-            <div className="flex items-center justify-between !mb-9">
-                <div><Category /></div>
-                <div><Sort /></div>
+        <div className="!pt-[clamp(32px,6.074px+1.852vw,32px)] !pb-[clamp(20px,5.778px+4.444vw,68px)]">
+            <div className="flex flex-col items-center justify-between gap-y-7 !mb-12 md:!mb-9  md:flex-row md:items-start">
+                <div ><Category categotyItems={categotyItems} /></div>
+                <div className="flex min-w-full md:min-w-auto "><Sort /></div>
             </div>
-            <h2 className="!text-3xl !font-bold !mb-9">All pizzas</h2>
+            <h2 className="!text-[clamp(22px,19.63px+0.741vw,30px)] !font-bold !mb-[clamp(15px,21.741px+1.019vw,36px)]">{categotyItems[activeCategory]}</h2>
             <div className="!mb-10 min-h-130.5">
                 {
                     isLoading ?
                         <div className="flex flex-wrap gap-x-16.5 gap-y-16 !pl-5 !pt-3">{skeleton}</div>
                         :
-                        <div className="flex flex-wrap gap-x-10 gap-y-16">{pizzasItems}</div>
+                        <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 md:justify-around 2xl:justify-start ">{pizzasItems}</div>
                 }
             </div>
             <Pagination count={pageCount} page={currentPage} onChange={handleChange} />
