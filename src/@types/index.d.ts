@@ -10,5 +10,15 @@ export type PizzaType = {
     rating: number
 }
 
+export type CartPizzaType = {
+    id: number,
+    imageUrl: string,
+    title: string,
+    type?: string | null,
+    size?: number | null,
+    price: number,
+    count: number
+}
+
 
 export type ActiveSortType = {name: string, sortProperty: string};

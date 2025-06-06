@@ -82,9 +82,9 @@ const Home = () => {
             <div className="!mb-10 min-h-130.5">
                 {
                     isLoading ?
-                        <div className="flex flex-wrap gap-x-16.5 gap-y-16 !pl-5 !pt-3">{skeleton}</div>
+                        <div className="flex flex-wrap gap-x-16.5 gap-y-16 !pl-5 !pt-3 justify-center md:justify-around 2xl:justify-start">{skeleton}</div>
                         :
-                        <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 md:justify-around 2xl:justify-start ">{pizzasItems}</div>
+                        <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 md:justify-around 2xl:justify-start">{pizzasItems}</div>
                 }
             </div>
             <Pagination count={pageCount} page={currentPage} onChange={handleChange} />

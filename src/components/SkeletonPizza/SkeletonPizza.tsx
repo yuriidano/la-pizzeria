@@ -4,7 +4,7 @@ export const SkeletonPizza = () => {
     return (
         <div className='flex flex-col items-center'>
             <div className='!mb-7'>
-                <Skeleton variant="circular" width={244} height={244} />
+                <Skeleton variant="circular" width={255} height={244} />
             </div>
             <div className='!mb-5.5'>
                 <Skeleton variant="text" width={250} height={25} />

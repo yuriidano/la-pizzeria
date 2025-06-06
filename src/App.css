@@ -5,21 +5,21 @@ body {
     font-family: 'Roboto';
     color: #000000;
     background-color: #FFDF8C;
-    /* overflow-y: scroll; */
+    overflow-y: scroll
   }
 
- /* ===========стилізація скроллу============
+  /* ===========стилізація скроллу============ */
  body::-webkit-scrollbar {
    width: 10px;
  }
  body::-webkit-scrollbar-track {
-   background: #bbbec2;
+   background: RGB(255, 223, 140);
  }
  body::-webkit-scrollbar-thumb {
    background: #989ca0;
    border-radius: 10px;
    cursor: pointer;
- } */
+ } 
   
   #root {
     height: 100%;

@@ -1,6 +1,9 @@
 import classNames from "classnames"
 import stylles from './Pizza.module.scss'
 import { useState } from "react"
+import { useAppDispatch } from "../../redux/store"
+import { addPizzaCart } from "../../redux/cart/cartSlice"
+import type { CartPizzaType } from "../../@types"
 
 
 interface Props {
@@ -15,13 +18,28 @@ interface Props {
 }
 
 
-export const Pizza = ({category, id, imageUrl, price, rating, sizes, title, types}: Props) => {
+export const Pizza = ({id, imageUrl, price, sizes, title, types}: Props) => {
+
+    const dispatch = useAppDispatch();
 
     const [activeSize, setActiveSize] = useState<number | null>(null);
     const typesPizzes = ['thin', 'traditional'];
     const [activeType, setActiveType] = useState<number | null>(null);
 
 
+    const addPizza = () => {
+
+        const newPizza:CartPizzaType = {
+            count: 1,
+            id,
+            imageUrl,
+            price,
+            title,
+        }
+        if(activeSize !== null) newPizza.size = activeSize;
+        if(activeType !== null) newPizza.type = typesPizzes[activeType]
+        dispatch(addPizzaCart(newPizza))
+    }
 
 
     return (
@@ -50,7 +68,7 @@ export const Pizza = ({category, id, imageUrl, price, rating, sizes, title, type
             </div>
             <div className="flex justify-between items-center gap-x-23 !pl-1">
                 <div className="text-xl font-bold ">{price} $</div>
-                <button className={classNames(
+                <button onClick={addPizza} className={classNames(
                     "flex justify-center items-center gap-x-6 !min-h-10 !border !border-my-orange !px-4 rounded-3xl", stylles.button
                     )}>
                     <span className={classNames(stylles.plus)}>+</span>

@@ -2,9 +2,12 @@ import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
 import type { PizzaType } from "../@types";
 
+const BASE_URL = 'https://67e4282e2ae442db76d34bc3.mockapi.io/';
+
 export const pizzaApi = createApi({
     reducerPath: 'pizzaApi',
-    baseQuery: fetchBaseQuery({baseUrl: 'https://67e4282e2ae442db76d34bc3.mockapi.io/'}),
+    baseQuery: fetchBaseQuery({baseUrl: BASE_URL}),
+    tagTypes: ['cartPizzas'],
     endpoints: (builder) => ({
         getPizzas: builder.query<PizzaType[], {activeCategory: number, sortQuery: string, order: string, search: string, limit: number, currentPage: number}>({
             query: ({activeCategory, sortQuery, order, search, limit, currentPage}) => {

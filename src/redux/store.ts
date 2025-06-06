@@ -1,13 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch, useSelector } from 'react-redux'
-import homeReducer from './home/homeSlice'
 import { pizzaApi } from '../api/api'
+import homeReducer from './home/homeSlice'
+import cartReducer from './cart//cartSlice'
+
 
 
 
 export const store = configureStore({
   reducer: {
     homeReducer,
+    cartReducer,
     [pizzaApi.reducerPath]: pizzaApi.reducer
   },
   middleware: (getDefaultMiddleware) =>
