@@ -48,9 +48,13 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
 
             <div className="flex items-center gap-x-23 ">
                 <div className="flex items-center gap-x-3 " >
-                    <button onClick={removePizzaCountHandler} disabled={count <= 1}  className={classNames(
-                        "w-8 h-8 !border-2 !border-my-orange rounded-full flex justify-center items-center cursor-pointer",
-                        "!text-xl text-my-orange hover:bg-my-orange hover:text-white duration-300", {'!text-gray-200 !border-2 !border-gray-100': count <= 1})}>
+                    <button onClick={removePizzaCountHandler} disabled={count <= 1} className={classNames(
+                        "w-8 h-8 rounded-full flex justify-center items-center cursor-pointer text-xl duration-300",
+                        "hover:bg-my-orange hover:text-white",
+                        count <= 1
+                            ? "!text-gray-200 !border-2 !border-gray-100 hover:bg-white"
+                            : "!border-2 !border-my-orange text-my-orange"
+                    )}>
                         <RemoveIcon />
                     </button>
                     <div className="text-xl font-bold">{count}</div>

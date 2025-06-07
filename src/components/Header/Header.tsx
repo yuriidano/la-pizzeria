@@ -4,9 +4,33 @@ import classNames from 'classnames'
 import stylles from './Header.module.scss'
 import { HeaderForm } from './HeaderForm/HeaderForm'
 import { Link } from 'react-router'
+import { useAppDispatch, useAppSelector } from '../../redux/store'
+import { selectCartPizza, selectTotalPrice } from '../../redux/cart/cartSelectors'
+import { useEffect, useRef } from 'react'
+import { setPizzasCart } from '../../redux/cart/cartSlice'
 
 
 export const Header = () => {
+    const dispatch = useAppDispatch();
+    const totalPrice = useAppSelector(selectTotalPrice);
+    const cartPizzas = useAppSelector(selectCartPizza);
+    const totalPizzas = cartPizzas.reduce((sum, item) => item.count + sum, 0);
+    const isMounted = useRef(false);
+    const localCartPizzas = window.JSON.parse(localStorage.getItem('cartPizzas') ?? '[]');
+
+
+    useEffect(() => {
+        dispatch(setPizzasCart(localCartPizzas))
+    }, [])
+
+    useEffect(() => {
+        if(isMounted.current) {
+            localStorage.setItem('cartPizzas', window.JSON.stringify(cartPizzas))
+        }
+        isMounted.current = true;
+    }, [cartPizzas]);
+
+
 
     return (
         <header className="!flex !items-center justify-between gap-x-5 min-h-[clamp(70px,45.704px+7.593vw,152px)] !border-b  !border-gray-200 ss-320:!py-3.5 ss-320:items-start">
@@ -29,14 +53,14 @@ export const Header = () => {
                 ' ss-320:self-start sm:self-center sm:gap-x-7 ', 
                 stylles.button)}>
                 <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 text-white font-bold items-center'>
-                    <span>520</span>
+                    <span>{totalPrice}</span>
                     <span>$</span>
                 </div>
                 <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 items-center'>
                     <div className='basis-3.5 min-w-3.5'>
                         <img src={basket} alt="basket" />
                     </div>
-                    <div className='text-white font-bold'>3</div>
+                    <div className='text-white font-bold'>{totalPizzas}</div>
                 </div>
             </Link>
         </header>

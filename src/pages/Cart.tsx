@@ -3,7 +3,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
 import { Link } from 'react-router';
 import { useAppDispatch, useAppSelector } from '../redux/store';
-import { selectCartPizza } from '../redux/cart/cartSelectors';
+import { selectCartPizza, selectTotalPrice } from '../redux/cart/cartSelectors';
 import { CartPizza } from '../components/CartPizza/CartPizza';
 import { clearCart } from '../redux/cart/cartSlice';
 
@@ -11,6 +11,8 @@ import { clearCart } from '../redux/cart/cartSlice';
 const Cart = () => {
     const cartPizzas = useAppSelector(selectCartPizza);
     const dispatch = useAppDispatch();
+    const totalPrice = useAppSelector(selectTotalPrice);
+    const totalPizzas = cartPizzas.reduce((sum, item) => item.count + sum, 0);
 
     const clearCartHandler = () => {
         dispatch(clearCart())
@@ -42,11 +44,11 @@ const Cart = () => {
                 <div className='flex items-center justify-between !mb-10'>
                     <div className='flex items-center gap-x-2 '>
                         <span className='text-2xl'>Total pizzas:</span>
-                        <span className='text-2xl font-bold'>3</span>
+                        <span className='text-2xl font-bold'>{totalPizzas}</span>
                     </div>
                     <div className='flex items-center gap-x-2 '>
-                        <span className='text-2xl'>Order total:</span>
-                        <span className='text-2xl font-bold text-my-orange '>3332</span>
+                        <span className='text-2xl'>Order amount:</span>
+                        <span className='text-2xl font-bold text-my-orange '>{totalPrice}</span>
                     </div>
                 </div>
 
