@@ -29,6 +29,7 @@ body {
  [class*="container"] {
   max-width: 1400px;
   margin: 10px auto 10px auto;
+  min-height: 920px;
   @media (min-width: 768px){
       margin: 43px auto 63px auto;
   }

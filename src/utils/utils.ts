@@ -7,3 +7,7 @@ export const calcTotalPrice = (cartPizzas: CartPizzaType[]) => {
 export const findPizzaById = (cartPizzas: CartPizzaType[], id: number) => {
     return  cartPizzas.find(pizza => pizza.id === id);
 }
+
+export const calcTotalCount = (cartPizzas: CartPizzaType[]) => {
+    return cartPizzas.reduce((sum, item) => item.count + sum, 0)
+}

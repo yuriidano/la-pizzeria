@@ -11,7 +11,8 @@ export type FilterType = {
 interface HomeState {
     filter: FilterType,
     limit: number,
-    pageCount: number
+    pageCount: number,
+    isError: boolean
 };
 
 const initialState: HomeState = {
@@ -22,7 +23,8 @@ const initialState: HomeState = {
         currentPage: 1,
     },
     limit: 4,
-    pageCount: 3
+    pageCount: 3,
+    isError: false
 };
 
 const homeSlice = createSlice({
@@ -43,11 +45,14 @@ const homeSlice = createSlice({
         },
         setFilter(state, action:PayloadAction<FilterType>) {
             state.filter = action.payload
+        },
+        toggleIsError(state, action:PayloadAction<boolean>) {
+            state.isError = action.payload
         }
     }
 });
 
 
-export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter } = homeSlice.actions;
+export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter, toggleIsError } = homeSlice.actions;
 
 export default homeSlice.reducer;

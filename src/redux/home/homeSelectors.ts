@@ -16,6 +16,10 @@ export const selectSearch = (state: RootState) => {
     return state.homeReducer.filter.search
 };
 
+export const selectIsError = (state: RootState) => {
+    return state.homeReducer.isError
+};
+
 
 export const selectHome = (state: RootState) => {
     return state.homeReducer

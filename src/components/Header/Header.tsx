@@ -3,20 +3,28 @@ import basket from '../../assets/icons/basket.svg'
 import classNames from 'classnames'
 import stylles from './Header.module.scss'
 import { HeaderForm } from './HeaderForm/HeaderForm'
-import { Link } from 'react-router'
+import { Link, useLocation } from 'react-router'
 import { useAppDispatch, useAppSelector } from '../../redux/store'
 import { selectCartPizza, selectTotalPrice } from '../../redux/cart/cartSelectors'
 import { useEffect, useRef } from 'react'
 import { setPizzasCart } from '../../redux/cart/cartSlice'
+import { calcTotalCount } from '../../utils/utils'
+import { selectIsError } from '../../redux/home/homeSelectors'
 
 
 export const Header = () => {
     const dispatch = useAppDispatch();
     const totalPrice = useAppSelector(selectTotalPrice);
     const cartPizzas = useAppSelector(selectCartPizza);
-    const totalPizzas = cartPizzas.reduce((sum, item) => item.count + sum, 0);
+    const isError = useAppSelector(selectIsError);
+    const totalPizzas = calcTotalCount(cartPizzas);
     const isMounted = useRef(false);
     const localCartPizzas = window.JSON.parse(localStorage.getItem('cartPizzas') ?? '[]');
+    const location = useLocation();
+
+    const pathnameString = location.pathname;
+    const pathname = pathnameString.includes('cart') && 'cart';
+    
 
 
     useEffect(() => {
@@ -24,7 +32,7 @@ export const Header = () => {
     }, [])
 
     useEffect(() => {
-        if(isMounted.current) {
+        if (isMounted.current) {
             localStorage.setItem('cartPizzas', window.JSON.stringify(cartPizzas))
         }
         isMounted.current = true;
@@ -45,24 +53,28 @@ export const Header = () => {
                         <div className='text-my-gray-text hidden md:block'>the most delicious pizza in the universe</div>
                     </div>
                 </Link>
-                <HeaderForm />
+                {!isError &&
+                    <HeaderForm />
+                }
             </div>
-            <Link to={'/cart'} className={classNames(
-                'min-h-[clamp(30px,17.593px+2.315vw,40px)] bg-orange-500 flex gap-x-5 !px-[clamp(18px,15.037px+0.926vw,28px)] rounded-3xl duration-300 ' +
-                 ' hover:bg-orange-600 ' +
-                ' ss-320:self-start sm:self-center sm:gap-x-7 ', 
-                stylles.button)}>
-                <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 text-white font-bold items-center'>
-                    <span>{totalPrice}</span>
-                    <span>$</span>
-                </div>
-                <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 items-center'>
-                    <div className='basis-3.5 min-w-3.5'>
-                        <img src={basket} alt="basket" />
+            { pathname !== 'cart' && !isError &&
+                <Link to={'/cart'} className={classNames(
+                    'min-h-[clamp(30px,17.593px+2.315vw,40px)] bg-orange-500 flex gap-x-5 !px-[clamp(18px,15.037px+0.926vw,28px)] rounded-3xl duration-300 ' +
+                    ' hover:bg-orange-600 ' +
+                    ' ss-320:self-start sm:self-center sm:gap-x-7 ',
+                    stylles.button)}>
+                    <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 text-white font-bold items-center'>
+                        <span>{totalPrice}</span>
+                        <span>$</span>
                     </div>
-                    <div className='text-white font-bold'>{totalPizzas}</div>
-                </div>
-            </Link>
+                    <div className='grow-0 shrink-0 basis-1/2 flex gap-x-2 items-center'>
+                        <div className='basis-3.5 min-w-3.5'>
+                            <img src={basket} alt="basket" />
+                        </div>
+                        <div className='text-white font-bold'>{totalPizzas}</div>
+                    </div>
+                </Link>
+            }
         </header>
     )
 }

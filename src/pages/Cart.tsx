@@ -6,21 +6,22 @@ import { useAppDispatch, useAppSelector } from '../redux/store';
 import { selectCartPizza, selectTotalPrice } from '../redux/cart/cartSelectors';
 import { CartPizza } from '../components/CartPizza/CartPizza';
 import { clearCart } from '../redux/cart/cartSlice';
+import { calcTotalCount } from '../utils/utils';
 
 
 const Cart = () => {
     const cartPizzas = useAppSelector(selectCartPizza);
     const dispatch = useAppDispatch();
     const totalPrice = useAppSelector(selectTotalPrice);
-    const totalPizzas = cartPizzas.reduce((sum, item) => item.count + sum, 0);
+    const totalPizzas = calcTotalCount(cartPizzas);
 
     const clearCartHandler = () => {
         dispatch(clearCart())
     }
 
     return (
-        <div className='!pt-23 !pb-32.5'>
-            <div className='max-w-205 !mx-auto'>
+        <div className='!pt-23 !pb-32.5 '>
+            <div className='max-w-235.5 !mx-auto'>
                 <div className='flex items-center justify-between !mb-7.5'>
                     <div className='flex items-center gap-x-3'>
                         <div className='!w-7 !h-7 '>
