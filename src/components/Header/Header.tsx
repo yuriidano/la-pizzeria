@@ -45,15 +45,15 @@ export const Header = () => {
             <div className='flex items-end gap-x-6  ss-320:flex-col ss-320:items-start ss-320:gap-5 ss-320:justify-end 
              sm:flex-row sm:items-center sm:gap-x-8 '>
                 <Link to={'/'} className='flex gap-x-3 items-center'>
-                    <div className='max-w-[clamp(25px,20.556px+1.389vw,40px)]'>
+                    <div className='max-w-[clamp(30px,20.556px+1.389vw,40px)]'>
                         <img className='max-w-[100%]' src={logo} alt="logo" />
                     </div>
                     <div>
-                        <div className='text-[clamp(14px,8.444px+1.111vw,24px)] font-extrabold uppercase max-w-20 ss-550:max-w-none'>La pizzeria</div>
+                        <div className='text-[clamp(16px,8.444px+1.111vw,24px)] font-extrabold uppercase max-w-20 ss-550:max-w-none'>La pizzeria</div>
                         <div className='text-my-gray-text hidden md:block'>the most delicious pizza in the universe</div>
                     </div>
                 </Link>
-                {!isError &&
+                {!isError && !pathname &&
                     <HeaderForm />
                 }
             </div>
