@@ -1,6 +1,6 @@
 import { fetchBaseQuery } from "@reduxjs/toolkit/query";
 import { createApi } from "@reduxjs/toolkit/query/react";
-import type { PizzaType } from "../@types";
+import type { OrderType, PizzaType } from "../@types";
 
 const BASE_URL = 'https://67e4282e2ae442db76d34bc3.mockapi.io/';
 
@@ -22,9 +22,16 @@ export const pizzaApi = createApi({
                 )
                 }
             }
+        }),
+        addOrder: builder.mutation<OrderType, OrderType>({
+            query: (order) => ({
+                url: 'order',
+                method: 'POST',
+                body: order
+            })
         })
     })
 });
 
-export const { useGetPizzasQuery } = pizzaApi;
+export const { useGetPizzasQuery, useAddOrderMutation } = pizzaApi;
 

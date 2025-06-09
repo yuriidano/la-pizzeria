@@ -21,4 +21,12 @@ export type CartPizzaType = {
 }
 
 
+export type OrderType = {
+    firstName: string,
+    lastName: string,
+    phone: string,
+    address: string,
+    items: CartPizzaType[],
+}
+
 export type ActiveSortType = {name: string, sortProperty: string};

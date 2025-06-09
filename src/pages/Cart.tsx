@@ -8,6 +8,7 @@ import { CartPizza } from '../components/CartPizza/CartPizza';
 import { clearCart } from '../redux/cart/cartSlice';
 import { calcTotalCount } from '../utils/utils';
 import { CartEmpty } from './СartEmpty';
+import { Order } from '../components/Order/Order';
 
 
 
@@ -69,7 +70,10 @@ const Cart = () => {
                         min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]
                        '>Pay now</button>
                 </div>
+
+                
             </div>
+            <Order />
         </div>
     )
 };
