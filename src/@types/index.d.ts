@@ -26,6 +26,7 @@ export type OrderType = {
     lastName: string,
     phone: string,
     address: string,
+    email: string,
     items: CartPizzaType[],
 }
 

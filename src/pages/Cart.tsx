@@ -8,7 +8,7 @@ import { CartPizza } from '../components/CartPizza/CartPizza';
 import { clearCart } from '../redux/cart/cartSlice';
 import { calcTotalCount } from '../utils/utils';
 import { CartEmpty } from './СartEmpty';
-import { Order } from '../components/Order/Order';
+import Order from '../components/Order/Order';
 
 
 
@@ -65,15 +65,9 @@ const Cart = () => {
                         <ArrowBackIosIcon className='!text-lg -translate-y-0.5 ' />
                         <span>Go back</span>
                     </Link>
-                    <button className='text-white min-h-[clamp(35px,22.889px+2.222vw,54px)] bg-my-orange flex justify-center items-center
-                       !px-[clamp(20px,14.074px+1.852vw,40px)] rounded-4xl cursor-pointer duration-300 hover:bg-orange-600 
-                        min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]
-                       '>Pay now</button>
-                </div>
-
-                
+                    <Order />
+                </div>              
             </div>
-            <Order />
         </div>
     )
 };
