@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router";
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
+import { useAppDispatch } from "../../../redux/store";
+import { clearCart } from "../../../redux/cart/cartSlice";
 
 
 const style = {
@@ -26,6 +28,8 @@ type PropsChildOrderType = {
 }
 
 export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
+    const dispatch = useAppDispatch();
+
     const navigate = useNavigate()
     const handleClose = (event: React.SyntheticEvent, reason: "backdropClick" | "escapeKeyDown") => {
         if (reason && (reason === 'backdropClick' || reason === 'escapeKeyDown')) {
@@ -34,6 +38,16 @@ export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
         setOpenChild(false);
         navigate('/')
     };
+
+    const myCloseHandler = () => {
+        setOpenChild(false);
+        navigate('/');
+        localStorage.removeItem('formData');
+        localStorage.removeItem('step');
+        localStorage.removeItem('activeStep');
+        dispatch(clearCart())
+    }
+
 
     return (
         <>
@@ -50,11 +64,7 @@ export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
                         Our manager will contact you shortly to confirm the details.
                     </div>
                     <div className="flex justify-center items-center ">
-                        <button className="text-white !min-h-9.5 !px-10 bg-my-orange rounded-3xl hover:bg-orange-600 duration-300 " onClick={() => {
-                            setOpenChild(false);
-                            navigate('/');
-                        }
-                        }>Close</button>
+                        <button className="text-white !min-h-9.5 !px-10 bg-my-orange rounded-3xl hover:bg-orange-600 duration-300 " onClick={myCloseHandler}>Close</button>
                     </div>
                 </Box>
             </Modal>

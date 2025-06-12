@@ -1,15 +1,10 @@
-
-import { useAddOrderMutation } from "../../api/api";
-import { selectCartPizza } from "../../redux/cart/cartSelectors";
-import { useAppSelector } from "../../redux/store";
 import { OrderForm } from "./OrderForm/OrderForm";
-
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { ChildOrder } from "./ChildOrder/ChildOrder";
 import CloseIcon from '@mui/icons-material/Close';
 import {ProgressMobileStepper} from "./Progress/Progress";
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const style = {
     position: 'absolute',
@@ -32,9 +27,22 @@ const Order = () => {
     const [open, setOpen] = useState(false);
     const [openChild, setOpenChild] = useState(false);
     const [activeStep, setActiveStep] = useState<number>(0);
+    const isMount = useRef(false);
 
-    const cartPizzas = useAppSelector(selectCartPizza);
-    const [createOrder, { data }] = useAddOrderMutation();
+    useEffect(() => {
+        const activeStepStorage = localStorage.getItem('activeStep');
+        if(activeStepStorage) setActiveStep(Number(activeStepStorage));
+    }, [])
+
+
+    useEffect(() => {
+       if(isMount.current) {
+            localStorage.setItem('activeStep', String(activeStep));
+       }
+       isMount.current = true;
+
+    }, [activeStep]);
+
     const handleOpen = () => {
         setOpen(true);
     };
@@ -57,7 +65,7 @@ const Order = () => {
                 aria-describedby="parent-modal-description"
             >
                 <Box sx={{ ...style, width: 800, height: 420, borderRadius: 2, }}>
-                    <span onClick={(event) => handleClose(event, "closeButton")}><CloseIcon className="absolute top-8 right-8 !text-4xl text-gray-400 cursor-pointer  hover:text-gray-500 !transition-colors !duration-300 " /></span>
+                    <span onClick={(event) => handleClose(event, "closeButton")}><CloseIcon className="absolute top-8 right-8 !text-4xl text-gray-400 cursor-pointer hover:text-gray-500 !transition-colors !duration-300 " /></span>
                     <h2 className="!text-4xl text-center !font-bold !mb-11 ">Placing an order</h2>
                     <div className="!pl-8 !mb-5"><ProgressMobileStepper activeStep={activeStep} /></div>
                     <div>

@@ -1,5 +1,9 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
+import { useAppSelector } from "../../../redux/store";
+import { selectCartPizza } from "../../../redux/cart/cartSelectors";
+import { useAddOrderMutation } from "../../../api/api";
+import type { OrderType } from "../../../@types";
 
 type PropsType = {
     setOpenChild: (value: boolean) => void,
@@ -17,21 +21,71 @@ type FormType = {
 }
 
 export const OrderForm = ({ setOpenChild, setOpen, setActiveStep, activeStep }: PropsType) => {
-    const { register, handleSubmit, setValue, trigger, watch, formState: { errors } } = useForm<FormType>();
+    const { register, handleSubmit, setValue, trigger, reset, watch, formState: { errors } } = useForm<FormType>();
+    const cartPizzas = useAppSelector(selectCartPizza);
+    const [createOrder, { data }] = useAddOrderMutation();
     const [step, setStep] = useState(1);
+    const isMountSteep = useRef(false);
+    const isMountFormData = useRef(false);
 
-    const onSubmit: SubmitHandler<FormType> = (data) => {
-        console.log(data);
-        setOpenChild(true)
+
+    useEffect(() => {
+        const stepStorage = localStorage.getItem('step');
+        if (stepStorage) setStep(Number(stepStorage));
+    }, []);
+
+    useEffect(() => {
+        try {
+            const formDataStorage = localStorage.getItem('formData');
+            if (formDataStorage) {
+                const parse = JSON.parse(formDataStorage);
+                reset(parse)
+            }
+        } catch (error) {
+            console.log('Error parsing order from localStorage:', error);
+            localStorage.removeItem('formData');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (isMountSteep.current) {
+            localStorage.setItem('step', String(step));
+        }
+        isMountSteep.current = true;
+
+    }, [step]);
+
+    const formDataStorage = watch();
+    useEffect(() => {
+        if (isMountFormData.current) {
+            const formDataString = JSON.stringify(formDataStorage);
+            localStorage.setItem('formData', formDataString)
+        }
+        isMountFormData.current = true;
+
+    }, [formDataStorage]);
+
+
+    const onSubmit: SubmitHandler<FormType> = async (formData) => {
+        const dataObjApi: OrderType = { ...formData };
+        dataObjApi.items = cartPizzas;
+        try {
+            await  createOrder(dataObjApi);
+            setOpenChild(true);
+            reset()
+        } catch (error) {
+            console.log(error);
+        }
     }
+
     const prevInputHandler = (e: React.MouseEvent<HTMLButtonElement>) => {
-         e.preventDefault();
+        e.preventDefault();
         setStep(prev => prev - 1);
         setActiveStep(activeStep - 1)
     }
 
     const nextInputHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
-         const valid = await trigger();
+        const valid = await trigger();
 
         if (valid) {
             e.preventDefault();
@@ -40,12 +94,10 @@ export const OrderForm = ({ setOpenChild, setOpen, setActiveStep, activeStep }: 
         }
     }
 
-
     return (
         <form className="!min-h-72 flex flex-col " onSubmit={handleSubmit(onSubmit)} >
             <div className="grow-1 inline-flex flex-col items-center ">
                 {step === 1 &&
-
                     <>
                         <div className="!mb-11 inline-flex flex-col relative">
                             <label htmlFor="firstName" className="text-gray-400 !mb-2">First name</label>
@@ -119,7 +171,7 @@ export const OrderForm = ({ setOpenChild, setOpen, setActiveStep, activeStep }: 
                 }
                 {step === 3 &&
                     <div className="inline-flex flex-col relative">
-                        <label htmlFor="adress" className="text-gray-400 !mb-2">Adress</label>
+                        <label htmlFor="adress" className="text-gray-400 !mb-2">Address</label>
                         <input id="adress" {...register('address', { required: 'adress is required' })}
                             className="text-gray-400 !border !border-gray-400 min-h-12 min-w-160 rounded-xl !px-2.5" />
                         {errors.address &&
