@@ -6,42 +6,58 @@ import CloseIcon from '@mui/icons-material/Close';
 import {ProgressMobileStepper} from "./Progress/Progress";
 import React, { useEffect, useRef, useState } from 'react';
 
+
 const style = {
     position: 'absolute',
     top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
-    pt: 3,
+    pt: {
+        xs:4,
+        lg:3
+    },
     px: 4,
     pb: 3,
+     width: {
+      xs: '290px',
+      sm: '390px',
+      md: '570px',
+      lg: '700px',
+      xl: '800px',
+    }, 
+    height: {
+        xs:390,
+        md:420
+    },
+
 };
 
 
 
 
 const Order = () => {
+
     const [open, setOpen] = useState(false);
     const [openChild, setOpenChild] = useState(false);
-    const [activeStep, setActiveStep] = useState<number>(0);
+    const [step, setStep] = useState<number>(0);
     const isMount = useRef(false);
 
     useEffect(() => {
-        const activeStepStorage = localStorage.getItem('activeStep');
-        if(activeStepStorage) setActiveStep(Number(activeStepStorage));
+        const activeStepStorage = localStorage.getItem('step');
+        if(activeStepStorage) setStep(Number(activeStepStorage));
     }, [])
 
 
     useEffect(() => {
        if(isMount.current) {
-            localStorage.setItem('activeStep', String(activeStep));
+            localStorage.setItem('step', String(step));
        }
        isMount.current = true;
 
-    }, [activeStep]);
+    }, [step]);
 
     const handleOpen = () => {
         setOpen(true);
@@ -52,7 +68,6 @@ const Order = () => {
         }
         setOpen(false);
     };
-
     return (
         <div >
             <button onClick={handleOpen} className='text-white min-h-[clamp(35px,22.889px+2.222vw,54px)] bg-my-orange flex justify-center items-center
@@ -64,18 +79,21 @@ const Order = () => {
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
             >
-                <Box sx={{ ...style, width: 800, height: 420, borderRadius: 2, }}>
-                    <span onClick={(event) => handleClose(event, "closeButton")}><CloseIcon className="absolute top-8 right-8 !text-4xl text-gray-400 cursor-pointer hover:text-gray-500 !transition-colors !duration-300 " /></span>
-                    <h2 className="!text-4xl text-center !font-bold !mb-11 ">Placing an order</h2>
-                    <div className="!pl-8 !mb-5"><ProgressMobileStepper activeStep={activeStep} /></div>
+                <Box sx={{ ...style,  borderRadius: 2, }}>
+                    <span onClick={(event) => handleClose(event, "closeButton")}>
+                        <CloseIcon
+                            className="absolute top-5 right-4 !text-[clamp(22px,17.852px+1.296vw,36px)] text-gray-400 cursor-pointer hover:text-gray-500 !transition-colors !duration-300 
+                            ss-600:top-8 ss-600:right-8"
+                        />
+                    </span>
+                    <h2 className="!text-[clamp(22px,17.852px+1.296vw,36px)] text-center !font-bold !mb-5.5 ss-600:!mb-11 ">Placing an order</h2>
+                    <div className="!pl-8 !mb-5"><ProgressMobileStepper step={step} /></div>
                     <div>
                         <OrderForm setOpen={(value: boolean) => setOpen(value)} setOpenChild={(value: boolean) => setOpenChild(value)}
-                                    setActiveStep={(value: number) => setActiveStep(value)} activeStep={activeStep}  />
+                                    setStep={setStep} step={step}  />
                     </div>
                     <ChildOrder openChild={openChild} setOpenChild={(value: boolean) => setOpenChild(value)} />
-                       
                 </Box>
-
             </Modal >
         </div>
     );

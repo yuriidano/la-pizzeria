@@ -74,6 +74,7 @@ h1, h2, h3, h4, h5, h6 {
   --breakpoint-ss-480: 30rem; 
   --breakpoint-ss-550: 34.375rem; 
   --breakpoint-ss-600: 37.5rem; 
+  --breakpoint-ss-992: 62rem; 
 
   --color-my-canvas: #FFDF8C;
   --color-my-orange: #FE5F1E;

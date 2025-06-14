@@ -44,7 +44,6 @@ const Home = () => {
     useEffect(() => {
         isQuery.current = false;
     }, [])
-    console.log(error);
 
     const pizzasItems = data?.map(pizza => <Pizza key={pizza.id} {...pizza} />);
     const skeleton = [...new Array(4)].map((_, index) => <SkeletonPizza key={index} />)

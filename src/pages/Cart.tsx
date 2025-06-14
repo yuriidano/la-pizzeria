@@ -25,9 +25,9 @@ const Cart = () => {
     if(!cartPizzas.length) return <CartEmpty />
 
     return (
-        <div className='!pt-[clamp(50px,11.63px+5.741vw,92px)] !pb-[clamp(20px,-279.574px+29.255vw,130px)] '>
+        <div className='!pt-[clamp(50px,11.63px+5.741vw,92px)] !pb-[clamp(20px,-3.704px+7.407vw,100px)] '>
             <div className='max-w-235.5 !mx-auto'>
-                <div className='flex items-center justify-between sm:!mb-22 xl:!mb-7.5'>
+                <div className='flex items-center justify-between  sm:!mb-22 xl:!mb-7.5'>
                     <div className='flex items-center gap-x-3'>
                         <div className='!w-7 !h-7 '>
                             <img className='max-w-full ' src={cartImage} alt="cartImage" />
@@ -40,7 +40,7 @@ const Cart = () => {
                         <div className='text-xl '>Empty Trash</div>
                     </div>
                 </div>
-                <div className='!mb-25 flex flex-col gap-y-7.5 sm:!mb-45  xl:!mb-10'>
+                <div className='!mb-25 flex flex-col gap-y-7.5 min-h-105 sm:!mb-45  xl:!mb-10'>
                     {
                         cartPizzas.map(pizza => <CartPizza key={pizza.id} {...pizza} />)
                     }
@@ -57,7 +57,7 @@ const Cart = () => {
                     </div>
                 </div>
 
-                <div className='flex flex-col gap-y-4 items-center justify-between ss-420:flex-row' >
+                <div className='flex flex-col gap-y-4 items-center ss-420:flex-row ss-420:justify-between ' >
                     <Link to={'/'} className='text-gray-300 min-h-[clamp(35px,22.889px+2.222vw,54px)] !border !border-gray-300 flex justify-center items-center
                        !px-[clamp(20px,14.074px+1.852vw,40px)] rounded-4xl cursor-pointer duration-300 hover:text-gray-400 hover:!border-gray-400
                         min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]
@@ -65,7 +65,7 @@ const Cart = () => {
                         <ArrowBackIosIcon className='!text-lg -translate-y-0.5 ' />
                         <span>Go back</span>
                     </Link>
-                    <Order />
+                    <div className='min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]'><Order /></div>
                 </div>              
             </div>
         </div>

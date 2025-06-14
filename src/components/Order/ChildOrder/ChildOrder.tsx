@@ -10,7 +10,14 @@ const style = {
     top: '40%',
     left: '50%',
     transform: 'translate(-50%, -50%)',
-    width: 400,
+    width: {
+        xs: '250px',
+        sm: '300px',
+        md: '350px',
+        lg: '350px',
+        xl: '400px',
+    },
+
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -57,9 +64,12 @@ export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
                 aria-labelledby="child-modal-title"
                 aria-describedby="child-modal-description"
             >
-                <Box sx={{ ...style, width: 500, height: 200, borderRadius: 2 }}>
-                    <h2 className=" !text-2xl text-center font-bold !mb-7 " id="child-modal-title">Your order has been successfully accepted</h2>
-                    <div className="!text-xl text-left leading-6 !mb-8"  id="child-modal-description">
+                <Box sx={{ ...style, borderRadius: 2 }}>
+                    <h2 className=" !text-[clamp(20px,18.815px+0.37vw,24px)] text-center !font-bold !mb-12  xl:!mb-7" id="child-modal-title">
+                        Your order has been successfully accepted
+                    </h2>
+                    <div className="!text-[clamp(16px,14.815px+0.37vw,20px)] indent-3 leading-6 !mb-20 text-justify 
+                        xl:!mb-8"  id="child-modal-description">
                         Thank you for your purchase.
                         Our manager will contact you shortly to confirm the details.
                     </div>
