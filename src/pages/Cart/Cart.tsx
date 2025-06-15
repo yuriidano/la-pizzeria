@@ -1,14 +1,13 @@
-import cartImage from '../assets/icons/basketBlack.svg'
+import cartImage from '../../assets/icons/basketBlack.svg'
 import DeleteIcon from '@mui/icons-material/Delete';
-import ArrowBackIosIcon from '@mui/icons-material/ArrowBackIos';
-import { Link } from 'react-router';
-import { useAppDispatch, useAppSelector } from '../redux/store';
-import { selectCartPizza, selectTotalPrice } from '../redux/cart/cartSelectors';
-import { CartPizza } from '../components/CartPizza/CartPizza';
-import { clearCart } from '../redux/cart/cartSlice';
-import { calcTotalCount } from '../utils/utils';
-import { CartEmpty } from './СartEmpty';
-import Order from '../components/Order/Order';
+import { useAppDispatch, useAppSelector } from '../../redux/store';
+import { selectCartPizza, selectTotalPrice } from '../../redux/cart/cartSelectors';
+import { CartPizza } from '../../components/CartPizza/CartPizza';
+import { clearCart } from '../../redux/cart/cartSlice';
+import { calcTotalCount } from '../../utils/utils';
+import { CartEmpty } from '../СartEmpty/СartEmpty';
+import Order from '../../components/Order/Order';
+import { GoBack } from '../../components/Common/Goback/GoBack';
 
 
 
@@ -58,15 +57,9 @@ const Cart = () => {
                 </div>
 
                 <div className='flex flex-col gap-y-4 items-center ss-420:flex-row ss-420:justify-between ' >
-                    <Link to={'/'} className='text-gray-300 min-h-[clamp(35px,22.889px+2.222vw,54px)] !border !border-gray-300 flex justify-center items-center
-                       !px-[clamp(20px,14.074px+1.852vw,40px)] rounded-4xl cursor-pointer duration-300 hover:text-gray-400 hover:!border-gray-400
-                        min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]
-                       '>
-                        <ArrowBackIosIcon className='!text-lg -translate-y-0.5 ' />
-                        <span>Go back</span>
-                    </Link>
+                    <GoBack />
                     <div className='min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]'><Order /></div>
-                </div>              
+                </div>
             </div>
         </div>
     )

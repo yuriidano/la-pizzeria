@@ -1,4 +1,4 @@
-import smileyImage from '../assets/image/smiley.png'
+import smileyImage from '../../assets/image/smiley.png'
 
 const NotFound = () => {
 

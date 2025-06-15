@@ -23,7 +23,8 @@ export const Header = () => {
     const location = useLocation();
 
     const pathnameString = location.pathname;
-    const pathname = pathnameString.includes('cart') && 'cart';
+    const pathNameCart = pathnameString.includes('cart') && 'cart';
+    const pathNamePizza = pathnameString.includes('items') && 'pizza';
     
 
 
@@ -53,11 +54,11 @@ export const Header = () => {
                         <div className='text-my-gray-text hidden md:block'>the most delicious pizza in the universe</div>
                     </div>
                 </Link>
-                {!isError && !pathname &&
+                {!isError && !pathNameCart && !pathNamePizza &&
                     <HeaderForm />
                 }
             </div>
-            { pathname !== 'cart' && !isError &&
+            { pathNameCart !== 'cart' && !isError &&
                 <Link to={'/cart'} className={classNames(
                     'min-h-[clamp(30px,17.593px+2.315vw,40px)] bg-orange-500 flex gap-x-5 !px-[clamp(18px,15.037px+0.926vw,28px)] rounded-3xl duration-300 ' +
                     ' hover:bg-orange-600 ' +

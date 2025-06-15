@@ -6,6 +6,7 @@ import { addPizzaCart } from "../../redux/cart/cartSlice"
 import type { CartPizzaType } from "../../@types"
 import { findPizzaById } from "../../utils/utils"
 import { selectCartPizza } from "../../redux/cart/cartSelectors"
+import { Link } from "react-router"
 
 
 interface Props {
@@ -24,9 +25,9 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types }: Props) => {
 
     const dispatch = useAppDispatch();
     const cartPizzas = useAppSelector(selectCartPizza);
-    const [activeSize, setActiveSize] = useState<number | null>(null);
+    const [activeSize, setActiveSize] = useState<number | null>(sizes[0]);
     const typesPizzes = ['thin', 'traditional'];
-    const [activeType, setActiveType] = useState<number | null>(null);
+    const [activeType, setActiveType] = useState<number | null>(types[0]);
 
 
     const pizza = findPizzaById(cartPizzas, id);
@@ -48,16 +49,21 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types }: Props) => {
 
     return (
         <div className="grow-1 shrink-1 max-w-80 flex flex-col items-center">
-            <div className="!p-3 !pl-7">
+            <Link to={`items/${id}`} className="cursor-pointer !p-3 !pl-7">
                 <img className="max-w-full mb-5.5" src={imageUrl} alt="pizza" />
-            </div>
-            <div className="text-xl font-extrabold !mb-5.5">{title}</div>
+            </Link>
+            <Link to={`items/${id}`} className="text-xl font-extrabold cursor-pointer !mb-5.5 hover:text-black/70 duration-300 ">{title}</Link>
             <div className="bg-gray-100 !p-2 rounded-xl !mb-4  min-w-71.5">
                 <div className="flex gap-x-1.5 !mb-2  min-w-63">
                     {
-                        types.map(type => <button key={type} onClick={() => setActiveType(type)}
-                            className={classNames("min-h-8 min-w-33 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white': type === activeType })}>
-                            {typesPizzes[type]}</button>)
+                        types.map(type => {
+                            return (
+                                <button key={type} onClick={() => setActiveType(type)}
+                                    className={classNames("min-h-8 min-w-33 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white': type === activeType })}>
+                                    {typesPizzes[type]}
+                                </button>
+                            )
+                        })
                     }
                 </div>
 

@@ -1,16 +1,16 @@
 import { useEffect, useRef } from "react";
-import { useGetPizzasQuery } from "../api/api";
-import { Category } from "../components/Category/Category";
-import { Pizza } from "../components/Pizza/Pizza";
-import { SkeletonPizza } from "../components/SkeletonPizza/SkeletonPizza";
-import { Sort } from "../components/Sort/Sort";
-import { selectHome } from "../redux/home/homeSelectors";
-import { setCurrentPage, setFilter, type FilterType } from "../redux/home/homeSlice";
-import { useAppDispatch, useAppSelector } from "../redux/store";
+import { useGetPizzasQuery } from "../../api/api";
+import { Category } from "../../components/Category/Category";
+import { Pizza } from "../../components/Pizza/Pizza";
+import { SkeletonPizza } from "../../components/SkeletonPizza/SkeletonPizza";
+import { Sort } from "../../components/Sort/Sort";
+import { selectHome } from "../../redux/home/homeSelectors";
+import { setCurrentPage, setFilter, type FilterType } from "../../redux/home/homeSlice";
+import { useAppDispatch, useAppSelector } from "../../redux/store";
 import Pagination from '@mui/material/Pagination';
 import { useLocation, useNavigate } from "react-router";
 import queryString from 'query-string';
-import { ErrorComponent } from "../components/Error/Error";
+import { ErrorComponent } from "../../components/Error/Error";
 
 const Home = () => {
     const dispatch = useAppDispatch();

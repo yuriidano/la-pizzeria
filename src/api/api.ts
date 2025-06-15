@@ -29,9 +29,12 @@ export const pizzaApi = createApi({
                 method: 'POST',
                 body: order
             })
+        }),
+        getPizza: builder.query<PizzaType, string>({
+            query: (id) => `/items/${id}`
         })
     })
 });
 
-export const { useGetPizzasQuery, useAddOrderMutation } = pizzaApi;
+export const { useGetPizzasQuery, useAddOrderMutation, useGetPizzaQuery} = pizzaApi;
 

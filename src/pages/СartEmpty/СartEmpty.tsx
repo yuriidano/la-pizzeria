@@ -1,5 +1,5 @@
 import { Link } from 'react-router'
-import emptyImage from '../assets/image/empty.jpeg'
+import emptyImage from '../../assets/image/empty.jpeg'
 
 export const CartEmpty = () => {
 

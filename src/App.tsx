@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router'
 import './App.css'
 import { Header } from './components/Header/Header'
-import Home from './pages/Home'
-import Cart from './pages/Cart'
-import NotFound from './pages/NotFound'
+import Home from './pages/Home/Home'
+import Cart from './pages/Cart/Cart'
+import NotFound from './pages/NotFound/NotFound'
+import PizzaPage from './pages/PizzaPage/PizzaPage'
 
 
  const App = () => {
@@ -17,6 +18,7 @@ import NotFound from './pages/NotFound'
                         <Routes>
                             <Route path='/' element={<Home />} />
                             <Route path='/cart' element={<Cart />} />
+                            <Route path='/items/:pizzaId' element={<PizzaPage />} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </main>
