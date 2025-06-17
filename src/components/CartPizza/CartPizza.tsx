@@ -7,6 +7,7 @@ import classNames from "classnames";
 
 
 export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartPizzaType) => {
+    const totalPricePizza = count * price;
 
     const dispatch = useAppDispatch();
 
@@ -67,7 +68,7 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
                     </div>
                 </div>
                 <div className="flex items-center gap-x-1 text-xl font-bold ">
-                    <span>{price}</span>
+                    <span>{totalPricePizza}</span>
                     <span>$</span>
                 </div>
                 <div onClick={removePizzaHandler} className="w-8 h-8 !border-2 !border-gray-300 rounded-full flex justify-center items-center cursor-pointer text-3xl text-gray-300 

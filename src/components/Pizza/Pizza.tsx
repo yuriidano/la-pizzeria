@@ -3,48 +3,52 @@ import stylles from './Pizza.module.scss'
 import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { addPizzaCart } from "../../redux/cart/cartSlice"
-import type { CartPizzaType } from "../../@types"
+import type { CartPizzaType, PizzaType } from "../../@types"
 import { findPizzaById } from "../../utils/utils"
 import { selectCartPizza } from "../../redux/cart/cartSelectors"
 import { Link } from "react-router"
+import { changePizzaPriceSize, changePizzaPriceType, setActiveSizePizza } from "../../redux/home/homeSlice"
 
 
-interface Props {
-    id: number,
-    imageUrl: string,
-    title: string,
-    types: number[],
-    sizes: number[],
-    price: number,
-    category: number,
-    rating: number
-}
 
 
-export const Pizza = ({ id, imageUrl, price, sizes, title, types }: Props) => {
+export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }: PizzaType) => {
+    
+    const [activeSize, setActiveSize] = useState<number | null>(sizes[0])
+
 
     const dispatch = useAppDispatch();
     const cartPizzas = useAppSelector(selectCartPizza);
-    const [activeSize, setActiveSize] = useState<number | null>(sizes[0]);
     const typesPizzes = ['thin', 'traditional'];
     const [activeType, setActiveType] = useState<number | null>(types[0]);
 
 
-    const pizza = findPizzaById(cartPizzas, id);
-    const addPizza = () => {
 
+    const pizza = findPizzaById(cartPizzas, id);
+
+    const addPizza = () => {
         const newPizza: CartPizzaType = {
             count: 1,
             id,
             imageUrl,
             price,
-            title,
+            title
         }
-        if (activeSize !== null) newPizza.size = activeSize;
+        if (currentSize !== null) newPizza.size = currentSize;
         if (activeType !== null) newPizza.type = typesPizzes[activeType]
         dispatch(addPizzaCart(newPizza))
     }
 
+    const typePizzaHandler = (type: number) => {
+        setActiveType(type)
+        dispatch(changePizzaPriceType({ id, type }))
+    }
+
+    const sizePizzaHandler = (value: number) => {
+        setActiveSize(value)
+        dispatch(changePizzaPriceSize({ id, size: value }));
+        dispatch(setActiveSizePizza({id, size: value}));
+    }
 
 
     return (
@@ -58,8 +62,8 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types }: Props) => {
                     {
                         types.map(type => {
                             return (
-                                <button key={type} onClick={() => setActiveType(type)}
-                                    className={classNames("min-h-8 min-w-33 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white': type === activeType })}>
+                                <button disabled={activeType === type} key={type} onClick={() => typePizzaHandler(type)}
+                                    className={classNames("min-h-8 min-w-33 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white !cursor-default ': type === activeType })}>
                                     {typesPizzes[type]}
                                 </button>
                             )
@@ -70,8 +74,8 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types }: Props) => {
                 <div className="flex gap-x-1.5">
                     {
                         sizes.map((size, index) =>
-                            <button key={index} onClick={() => setActiveSize(size)}
-                                className={classNames("min-h-8 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white': size === activeSize })}>
+                            <button disabled={size === activeSize} key={index} onClick={() => sizePizzaHandler(size)}
+                                className={classNames("min-h-8 grow-1 rounded-md hover:bg-white duration-300", { 'bg-white !cursor-default': size === activeSize })}>
                                 {size} sm.</button>)
                     }
                 </div>

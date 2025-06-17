@@ -1,5 +1,24 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { ActiveSortType } from "../../@types";
+import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
+import type { ActiveSortType, PizzaType } from "../../@types";
+import { pizzasApi } from "../../api/home-api";
+
+interface ArgFetchPizzas {
+    activeCategory: number, 
+    sortQuery: string, 
+    order: string, 
+    search: string, 
+    limit: number, 
+    currentPage: number
+}
+
+export const fetchPizzas = createAsyncThunk<PizzaType[], ArgFetchPizzas >(
+    'home/getPizzas',
+    async (arg) => {
+            const response = await pizzasApi.getPizzas(arg.activeCategory, arg.sortQuery, arg.order, arg.search, arg.limit, arg.currentPage)
+            return response;
+    }
+);
+
 
 export type FilterType = {
         activeCategory: number,
@@ -12,7 +31,10 @@ interface HomeState {
     filter: FilterType,
     limit: number,
     pageCount: number,
-    isError: boolean
+    isError: boolean,
+    pizzas: PizzaType[],
+    status: 'idle' | 'loading' | 'succeeded' | 'failed',
+    error: string | null
 };
 
 const initialState: HomeState = {
@@ -24,7 +46,10 @@ const initialState: HomeState = {
     },
     limit: 4,
     pageCount: 3,
-    isError: false
+    isError: false,
+    pizzas: [],
+    status: "idle",
+    error: null
 };
 
 const homeSlice = createSlice({
@@ -48,11 +73,71 @@ const homeSlice = createSlice({
         },
         toggleIsError(state, action:PayloadAction<boolean>) {
             state.isError = action.payload
+        },
+        changePizzaPriceType(state, action: PayloadAction<{ id: number, type: number }>) {
+            state.pizzas = state.pizzas.map(pizza => {
+                if (pizza.id === action.payload.id && action.payload.type === 1 && pizza.types.length > 1) {
+                    return { ...pizza, price: pizza.price += 7 }
+                }
+                if (pizza.id === action.payload.id && action.payload.type === 0 && pizza.types.length > 1) {
+                    return { ...pizza, price: pizza.price -= 7 }
+                }
+
+                return pizza;
+            })
+        },
+        setActiveSizePizza(state, action:PayloadAction<{id: number, size: number}>) {
+
+            state.pizzas = state.pizzas.map(pizza => {
+                if (pizza.id === action.payload.id) {
+                    return { ...pizza, currentSize: action.payload.size }
+                }
+                return pizza;
+            })
+        },
+        changePizzaPriceSize(state, action: PayloadAction<{ id: number, size: number }>) {
+            state.pizzas = state.pizzas.map(pizza => {
+                if (pizza.id === action.payload.id && pizza.currentSize === 26 && action.payload.size === 30) {
+                    return { ...pizza, price: pizza.price += 9 }
+                }  else if(pizza.id === action.payload.id && pizza.currentSize === 30 && action.payload.size === 40) {
+                    return { ...pizza, price: pizza.price += 7 }
+                } else if (pizza.id === action.payload.id && pizza.currentSize === 26 && action.payload.size === 40) {
+                    return { ...pizza, price: pizza.price += 14 }
+                }
+
+                if (pizza.id === action.payload.id && pizza.currentSize === 40 && action.payload.size === 30) {
+                    return { ...pizza, price: pizza.price -= 7 }
+                } else if(pizza.id === action.payload.id && pizza.currentSize === 30 && action.payload.size === 26) {
+                    return { ...pizza, price: pizza.price -= 9 }
+
+                } else if(pizza.id === action.payload.id && pizza.currentSize === 40 && action.payload.size === 26) {
+                    return { ...pizza, price: pizza.price -= 14 }
+                }
+                return pizza;
+            })
         }
+    },
+
+    extraReducers: (builder) => {
+        builder.
+            addCase(fetchPizzas.pending, (state) => {
+                state.status = "loading",
+                state.pizzas = []
+            })
+            .addCase(fetchPizzas.fulfilled, (state, action) => {
+                state.status = "succeeded",
+                state.pizzas = action.payload
+            })
+            .addCase(fetchPizzas.rejected, (state, action) => {
+                state.status = "failed",
+                state.pizzas = [],
+                state.error = action.error.message ?? 'Unknown error'
+            })
     }
 });
 
 
-export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter, toggleIsError } = homeSlice.actions;
+export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter, toggleIsError, changePizzaPriceType, changePizzaPriceSize, setActiveSizePizza } 
+= homeSlice.actions;
 
 export default homeSlice.reducer;

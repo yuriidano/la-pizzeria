@@ -19,7 +19,7 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addPizzaCart(state, action:PayloadAction<CartPizzaType>) {
-            const searchPizza = findPizzaById(state.cartPizzas, action.payload.id);
+            const searchPizza = findPizzaById(state.cartPizzas, action.payload.id, action.payload.size, action.payload.type);
 
             if(searchPizza) {
                 searchPizza.count++

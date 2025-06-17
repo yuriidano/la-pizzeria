@@ -9,7 +9,8 @@ export type PizzaType = {
     category: number,
     rating: number,
     description: string,
-    ingredients: string[]
+    ingredients: string[],
+    currentSize: number,
 }
 
 export type CartPizzaType = {
