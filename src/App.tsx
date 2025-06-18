@@ -2,12 +2,19 @@ import { Route, Routes } from 'react-router'
 import './App.css'
 import { Header } from './components/Header/Header'
 import Home from './pages/Home/Home'
-import Cart from './pages/Cart/Cart'
 import NotFound from './pages/NotFound/NotFound'
-import PizzaPage from './pages/PizzaPage/PizzaPage'
+import { lazy } from 'react'
+import { withLazy } from './hoc/withLazy'
+
+const CartPage = lazy(() => import('./pages/Cart/Cart'));
+const PizzaPage = lazy(() => import('./pages/PizzaPage/PizzaPage'));
+
+const CartLazy = withLazy(CartPage);
+const PizzaLazy = withLazy(PizzaPage);
 
 
- const App = () => {
+
+const App = () => {
 
     return (
         <div className='flex flex-col min-h-full overflow-hidden'>
@@ -17,8 +24,8 @@ import PizzaPage from './pages/PizzaPage/PizzaPage'
                     <main className='!min-h-full !flex-grow-1 !flex-shrink-1 !flex-basis-full '>
                         <Routes>
                             <Route path='/' element={<Home />} />
-                            <Route path='/cart' element={<Cart />} />
-                            <Route path='/items/:pizzaId' element={<PizzaPage />} />
+                            <Route path='/cart' element={ <CartLazy /> } />
+                            <Route path='/items/:pizzaId' element={<PizzaLazy />} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>
                     </main>

@@ -8,6 +8,7 @@ import { calcTotalCount } from '../../utils/utils';
 import { CartEmpty } from '../СartEmpty/СartEmpty';
 import Order from '../../components/Order/Order';
 import { GoBack } from '../../components/Common/Goback/GoBack';
+import { Preloader } from '../../components/Common/Preloader/Preloader';
 
 
 

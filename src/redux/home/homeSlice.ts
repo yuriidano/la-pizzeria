@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { ActiveSortType, PizzaType } from "../../@types";
 import { pizzasApi } from "../../api/home-api";
+import { calcPizzaPriceSize, calcPizzaPriceType } from "../../utils/utils";
 
 interface ArgFetchPizzas {
     activeCategory: number, 
@@ -75,19 +76,9 @@ const homeSlice = createSlice({
             state.isError = action.payload
         },
         changePizzaPriceType(state, action: PayloadAction<{ id: number, type: number }>) {
-            state.pizzas = state.pizzas.map(pizza => {
-                if (pizza.id === action.payload.id && action.payload.type === 1 && pizza.types.length > 1) {
-                    return { ...pizza, price: pizza.price += 7 }
-                }
-                if (pizza.id === action.payload.id && action.payload.type === 0 && pizza.types.length > 1) {
-                    return { ...pizza, price: pizza.price -= 7 }
-                }
-
-                return pizza;
-            })
+            state.pizzas = calcPizzaPriceType(state.pizzas, action.payload.id, action.payload.type);
         },
         setActiveSizePizza(state, action:PayloadAction<{id: number, size: number}>) {
-
             state.pizzas = state.pizzas.map(pizza => {
                 if (pizza.id === action.payload.id) {
                     return { ...pizza, currentSize: action.payload.size }
@@ -96,25 +87,7 @@ const homeSlice = createSlice({
             })
         },
         changePizzaPriceSize(state, action: PayloadAction<{ id: number, size: number }>) {
-            state.pizzas = state.pizzas.map(pizza => {
-                if (pizza.id === action.payload.id && pizza.currentSize === 26 && action.payload.size === 30) {
-                    return { ...pizza, price: pizza.price += 9 }
-                }  else if(pizza.id === action.payload.id && pizza.currentSize === 30 && action.payload.size === 40) {
-                    return { ...pizza, price: pizza.price += 7 }
-                } else if (pizza.id === action.payload.id && pizza.currentSize === 26 && action.payload.size === 40) {
-                    return { ...pizza, price: pizza.price += 14 }
-                }
-
-                if (pizza.id === action.payload.id && pizza.currentSize === 40 && action.payload.size === 30) {
-                    return { ...pizza, price: pizza.price -= 7 }
-                } else if(pizza.id === action.payload.id && pizza.currentSize === 30 && action.payload.size === 26) {
-                    return { ...pizza, price: pizza.price -= 9 }
-
-                } else if(pizza.id === action.payload.id && pizza.currentSize === 40 && action.payload.size === 26) {
-                    return { ...pizza, price: pizza.price -= 14 }
-                }
-                return pizza;
-            })
+            state.pizzas = calcPizzaPriceSize(state.pizzas, action.payload.id, action.payload.size)
         }
     },
 

@@ -12,16 +12,20 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
     const dispatch = useAppDispatch();
 
     const removePizzaHandler = () => {
-       dispatch(removePizza(id))
+        if (size && type) {
+            dispatch(removePizza({ id, size, type }))
+        }
     }
 
     const addPizzaCountHandler = () => {
-        dispatch(addCountPizza(id))
+       if(size && type) {
+         dispatch(addCountPizza({id, size, type}))
+       }
     }
 
     const removePizzaCountHandler = () => {
-        if (count >= 2) {
-            dispatch(removeCountPizza(id))
+        if (count >= 2 && size && type) {
+            dispatch(removeCountPizza({id, size, type}))
         }
 
     }

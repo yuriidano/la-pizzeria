@@ -1,6 +1,6 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CartPizzaType } from "../../@types"
-import { calcTotalPrice, findPizzaById } from "../../utils/utils";
+import { calcTotalPrice,  findPizzaByIdSizePype } from "../../utils/utils";
 
 
 interface CartState {
@@ -19,7 +19,7 @@ const cartSlice = createSlice({
     initialState,
     reducers: {
         addPizzaCart(state, action:PayloadAction<CartPizzaType>) {
-            const searchPizza = findPizzaById(state.cartPizzas, action.payload.id, action.payload.size, action.payload.type);
+            const searchPizza = findPizzaByIdSizePype(state.cartPizzas, action.payload.id, action.payload.size, action.payload.type);
 
             if(searchPizza) {
                 searchPizza.count++
@@ -29,23 +29,23 @@ const cartSlice = createSlice({
 
             state.totalPrice = calcTotalPrice(state.cartPizzas);
         },
-        removePizza(state, action:PayloadAction<number>) {
-            state.cartPizzas = state.cartPizzas.filter(pizza => pizza.id !== action.payload)
+        removePizza(state, action:PayloadAction<{id: number, size: number, type: string}>) {
+            state.cartPizzas = state.cartPizzas.filter(pizza => !(pizza.id === action.payload.id && pizza.size === action.payload.size && pizza.type === action.payload.type))
             state.totalPrice = calcTotalPrice(state.cartPizzas);
         },
         clearCart(state) {
             state.cartPizzas = [];
             state.totalPrice = calcTotalPrice(state.cartPizzas);
         },
-        addCountPizza(state, action:PayloadAction<number>) {
-            const searchPizza = findPizzaById(state.cartPizzas, action.payload);
+        addCountPizza(state, action:PayloadAction<{id: number, size: number, type: string}>) {
+             const searchPizza = findPizzaByIdSizePype(state.cartPizzas, action.payload.id, action.payload.size, action.payload.type);
             if (searchPizza) {
                 searchPizza.count++;
                 state.totalPrice = calcTotalPrice(state.cartPizzas);
             }
         },
-        removeCountPizza(state, action: PayloadAction<number>) {
-            const searchPizza = state.cartPizzas.find(pizza => pizza.id === action.payload);
+        removeCountPizza(state, action: PayloadAction<{id: number, size: number, type: string}>) {
+             const searchPizza = findPizzaByIdSizePype(state.cartPizzas, action.payload.id, action.payload.size, action.payload.type);
             if (searchPizza) {
                 searchPizza.count--;
                 state.totalPrice = calcTotalPrice(state.cartPizzas);

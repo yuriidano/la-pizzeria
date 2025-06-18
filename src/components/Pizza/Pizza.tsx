@@ -4,7 +4,7 @@ import { useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { addPizzaCart } from "../../redux/cart/cartSlice"
 import type { CartPizzaType, PizzaType } from "../../@types"
-import { findPizzaById } from "../../utils/utils"
+import { calcAllPizzaIdCount } from "../../utils/utils"
 import { selectCartPizza } from "../../redux/cart/cartSelectors"
 import { Link } from "react-router"
 import { changePizzaPriceSize, changePizzaPriceType, setActiveSizePizza } from "../../redux/home/homeSlice"
@@ -24,7 +24,7 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }:
 
 
 
-    const pizza = findPizzaById(cartPizzas, id);
+    const countPizza = calcAllPizzaIdCount(cartPizzas, id);
 
     const addPizza = () => {
         const newPizza: CartPizzaType = {
@@ -87,9 +87,9 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }:
                 )}>
                     <span className={classNames(stylles.plus)}>+</span>
                     <span>Add</span>
-                    {pizza?.count ?
+                    {countPizza ?
                         <div className={classNames("!w-5.5 !h-5.5 flex justify-center items-center rounded-full", stylles.countBody)}>
-                            <span className={classNames("text-white text-xs hover:text-my-orange duration-300", stylles.count)}>{pizza?.count}</span>
+                            <span className={classNames("text-white text-xs hover:text-my-orange duration-300", stylles.count)}>{countPizza}</span>
                         </div>
                         :
                         <div className={classNames("!w-5.5 !h-5.5 flex justify-center items-center rounded-full", stylles.noCountBody)}>

@@ -39,8 +39,24 @@ const style = {
 
 
 const Order = () => {
-
+    
     const [open, setOpen] = useState(false);
+
+    useEffect(() => {
+        const openPopapStorage = localStorage.getItem('openPopap')
+        if(openPopapStorage) {
+             const parse = JSON.parse(openPopapStorage);
+             console.log(parse);
+             setOpen(parse)
+        }
+
+    }, [])
+
+    useEffect(() => {
+        localStorage.setItem('openPopap', JSON.stringify(open))
+    }, [open])
+
+
     const [openChild, setOpenChild] = useState(false);
     const [step, setStep] = useState<number>(0);
     const isMount = useRef(false);

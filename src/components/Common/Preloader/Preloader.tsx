@@ -1,18 +1,10 @@
-import Backdrop from '@mui/material/Backdrop';
 import CircularProgress from '@mui/material/CircularProgress';
 
-type PropsType = {
-    isOpen: boolean
-}
 
-export const Preloader = ({isOpen}: PropsType) => {
+
+export const Preloader = () => {
 
     return (
-        <Backdrop
-            sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
-            open={isOpen}
-        >
-            <CircularProgress className='!w-17 !h-17' color="inherit" />
-        </Backdrop>
+       <div className='absolute top-[50%] left-1/2' > <CircularProgress className='!w-17 !h-17' color="inherit" /></div>
     )
 }
