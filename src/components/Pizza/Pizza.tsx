@@ -10,9 +10,6 @@ import { Link } from "react-router"
 import { changePizzaPriceSize, changePizzaPriceType, setActiveSizePizza } from "../../redux/home/homeSlice"
 
 
-
-
-
 export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }: PizzaType) => {  
     const [activeSize, setActiveSize] = useState<number | null>(sizes[0])
     const dispatch = useAppDispatch();
