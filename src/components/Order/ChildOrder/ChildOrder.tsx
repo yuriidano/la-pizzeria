@@ -36,7 +36,7 @@ export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
     const dispatch = useAppDispatch();
 
     const navigate = useNavigate()
-    const handleClose = (event: React.SyntheticEvent, reason: "backdropClick" | "escapeKeyDown") => {
+    const handleClose = (reason: "backdropClick" | "escapeKeyDown") => {
         if (reason && (reason === 'backdropClick' || reason === 'escapeKeyDown')) {
             return;
         }

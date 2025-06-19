@@ -59,7 +59,7 @@ const Order = () => {
     const handleOpen = () => {
         setOpen(true);
     };
-    const handleClose = (event: React.SyntheticEvent, reason: "backdropClick" | "escapeKeyDown" | "closeButton") => {
+    const handleClose = ( reason: "backdropClick" | "escapeKeyDown" | "closeButton") => {
         if (reason === "backdropClick" || reason === "escapeKeyDown") {
             return;
         }
@@ -77,7 +77,7 @@ const Order = () => {
                 aria-describedby="parent-modal-description"
             >
                 <Box sx={{ ...style, borderRadius: 2, }}>
-                    <span onClick={(event) => handleClose(event, "closeButton")}>
+                    <span onClick={() => handleClose( "closeButton")}>
                         <CloseIcon
                             className="absolute top-5 right-4 !text-[clamp(22px,17.852px+1.296vw,36px)] text-gray-400 cursor-pointer hover:text-gray-500 !transition-colors !duration-300 
                             ss-600:top-8 ss-600:right-8"

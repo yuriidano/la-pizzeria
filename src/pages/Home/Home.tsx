@@ -48,7 +48,7 @@ const Home = () => {
     const skeleton = [...new Array(4)].map((_, index) => <SkeletonPizza key={index} />)
 
 
-    const handleChange = (event: React.ChangeEvent<unknown>, value: number) => {
+    const handleChange = (_event: React.ChangeEvent<unknown>, value: number) => {
         dispatch(setCurrentPage(value))
     };
 
