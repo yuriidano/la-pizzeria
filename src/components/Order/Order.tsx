@@ -4,7 +4,7 @@ import Modal from '@mui/material/Modal';
 import { ChildOrder } from "./ChildOrder/ChildOrder";
 import CloseIcon from '@mui/icons-material/Close';
 import { ProgressMobileStepper } from "./Progress/Progress";
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 
 
 const style = {

@@ -17,7 +17,7 @@ const Home = () => {
     const location = useLocation();
     const isMounted = useRef(false);
     const isQuery = useRef(false);
-    const { filter: { activeCategory, activeSort, search, currentPage }, limit, pageCount, pizzas, error, status, isError } = useAppSelector(selectHome);
+    const { filter: { activeCategory, activeSort, search, currentPage }, limit, pageCount, pizzas, error, status } = useAppSelector(selectHome);
     const categotyItems = ['All', 'Meat', 'Vegetarian', 'Grill', 'Acute', 'Closed'];
     const order = activeSort?.name.includes('asc') ? 'asc' : 'desc';
     const sortQuery = activeSort?.sortProperty || '';
