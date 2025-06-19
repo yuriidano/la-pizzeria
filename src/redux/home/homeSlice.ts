@@ -20,7 +20,6 @@ export const fetchPizzas = createAsyncThunk<PizzaType[], ArgFetchPizzas >(
     }
 );
 
-
 export type FilterType = {
         activeCategory: number,
         activeSort: ActiveSortType | null,
@@ -108,7 +107,6 @@ const homeSlice = createSlice({
             })
     }
 });
-
 
 export const { setActiveCategory, setActiveSort, setSearch, setCurrentPage, setFilter, toggleIsError, changePizzaPriceType, changePizzaPriceSize, setActiveSizePizza } 
 = homeSlice.actions;

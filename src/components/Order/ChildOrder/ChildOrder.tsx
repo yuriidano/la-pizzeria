@@ -17,7 +17,6 @@ const style = {
         lg: '350px',
         xl: '400px',
     },
-
     bgcolor: 'background.paper',
     border: '2px solid #000',
     boxShadow: 24,
@@ -26,7 +25,6 @@ const style = {
     pb: 3,
     
 };
-
 
 
 type PropsChildOrderType = {
@@ -54,7 +52,6 @@ export const ChildOrder = ({openChild, setOpenChild}:PropsChildOrderType) => {
         localStorage.removeItem('activeStep');
         dispatch(clearCart())
     }
-
 
     return (
         <>

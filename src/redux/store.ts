@@ -4,9 +4,6 @@ import { pizzaApi } from '../api/api'
 import homeReducer from './home/homeSlice'
 import cartReducer from './cart//cartSlice'
 
-
-
-
 export const store = configureStore({
   reducer: {
     homeReducer,
@@ -16,8 +13,6 @@ export const store = configureStore({
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(pizzaApi.middleware)
 })
-
-
 
 export type RootState = ReturnType<typeof store.getState>
 export type AppDispatch = typeof store.dispatch

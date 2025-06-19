@@ -3,7 +3,7 @@ import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import { ChildOrder } from "./ChildOrder/ChildOrder";
 import CloseIcon from '@mui/icons-material/Close';
-import {ProgressMobileStepper} from "./Progress/Progress";
+import { ProgressMobileStepper } from "./Progress/Progress";
 import React, { useEffect, useRef, useState } from 'react';
 
 
@@ -16,69 +16,50 @@ const style = {
     border: '2px solid #000',
     boxShadow: 24,
     pt: {
-        xs:4,
-        lg:3
+        xs: 4,
+        lg: 3
     },
     px: 4,
     pb: 3,
-     width: {
-      xs: '290px',
-      sm: '390px',
-      md: '570px',
-      lg: '700px',
-      xl: '800px',
-    }, 
+    width: {
+        xs: '290px',
+        sm: '390px',
+        md: '570px',
+        lg: '700px',
+        xl: '800px',
+    },
     height: {
-        xs:390,
-        md:420
+        xs: 390,
+        md: 420
     },
 
 };
 
 
-
-
 const Order = () => {
-    
+
     const [open, setOpen] = useState(false);
-
-    useEffect(() => {
-        const openPopapStorage = localStorage.getItem('openPopap')
-        if(openPopapStorage) {
-             const parse = JSON.parse(openPopapStorage);
-             console.log(parse);
-             setOpen(parse)
-        }
-
-    }, [])
-
-    useEffect(() => {
-        localStorage.setItem('openPopap', JSON.stringify(open))
-    }, [open])
-
-
     const [openChild, setOpenChild] = useState(false);
     const [step, setStep] = useState<number>(0);
     const isMount = useRef(false);
 
     useEffect(() => {
         const activeStepStorage = localStorage.getItem('step');
-        if(activeStepStorage) setStep(Number(activeStepStorage));
+        if (activeStepStorage) setStep(Number(activeStepStorage));
     }, [])
 
-
     useEffect(() => {
-       if(isMount.current) {
+        if (isMount.current) {
             localStorage.setItem('step', String(step));
-       }
-       isMount.current = true;
+        }
+        isMount.current = true;
 
     }, [step]);
 
     const handleOpen = () => {
         setOpen(true);
     };
-    const handleClose = (event: React.SyntheticEvent, reason: "backdropClick" | "escapeKeyDown" | "closeButton" ) => {
+    const handleClose = (event: React.SyntheticEvent, reason: "backdropClick" | "escapeKeyDown" | "closeButton") => {
         if (reason === "backdropClick" || reason === "escapeKeyDown") {
             return;
         }
@@ -95,7 +76,7 @@ const Order = () => {
                 aria-labelledby="parent-modal-title"
                 aria-describedby="parent-modal-description"
             >
-                <Box sx={{ ...style,  borderRadius: 2, }}>
+                <Box sx={{ ...style, borderRadius: 2, }}>
                     <span onClick={(event) => handleClose(event, "closeButton")}>
                         <CloseIcon
                             className="absolute top-5 right-4 !text-[clamp(22px,17.852px+1.296vw,36px)] text-gray-400 cursor-pointer hover:text-gray-500 !transition-colors !duration-300 
@@ -106,7 +87,7 @@ const Order = () => {
                     <div className="!pl-8 !mb-5"><ProgressMobileStepper step={step} /></div>
                     <div>
                         <OrderForm setOpen={(value: boolean) => setOpen(value)} setOpenChild={(value: boolean) => setOpenChild(value)}
-                                    setStep={setStep} step={step}  />
+                            setStep={setStep} step={step} />
                     </div>
                     <ChildOrder openChild={openChild} setOpenChild={(value: boolean) => setOpenChild(value)} />
                 </Box>

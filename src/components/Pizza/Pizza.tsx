@@ -1,6 +1,6 @@
 import classNames from "classnames"
 import stylles from './Pizza.module.scss'
-import { useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { useAppDispatch, useAppSelector } from "../../redux/store"
 import { addPizzaCart } from "../../redux/cart/cartSlice"
 import type { CartPizzaType, PizzaType } from "../../@types"
@@ -12,19 +12,26 @@ import { changePizzaPriceSize, changePizzaPriceType, setActiveSizePizza } from "
 
 
 
-export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }: PizzaType) => {
-    
+
+export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }: PizzaType) => {  
     const [activeSize, setActiveSize] = useState<number | null>(sizes[0])
-
-
     const dispatch = useAppDispatch();
     const cartPizzas = useAppSelector(selectCartPizza);
     const typesPizzes = ['thin', 'traditional'];
+    const [priceUpdated, setPriceUpdated] = useState(false);
+    const isMounted = useRef(false);
     const [activeType, setActiveType] = useState<number | null>(types[0]);
-
-
-
     const countPizza = calcAllPizzaIdCount(cartPizzas, id);
+
+    useEffect(() => {
+        if(isMounted.current) {
+            setPriceUpdated(true);
+            const timer = setTimeout(() => setPriceUpdated(false), 400);
+            return () => clearTimeout(timer);
+        }
+
+        isMounted.current = true;
+    }, [price])
 
     const addPizza = () => {
         const newPizza: CartPizzaType = {
@@ -80,8 +87,9 @@ export const Pizza = ({ id, imageUrl, price, sizes, title, types, currentSize }:
                     }
                 </div>
             </div>
+            
             <div className="flex justify-between items-center gap-x-23 !pl-1">
-                <div className="text-xl font-bold ">{price} $</div>
+                <div className={classNames(`text-xl font-bold`, {' text-my-orange': priceUpdated})}>{price} $</div>
                 <button onClick={addPizza} className={classNames(
                     "flex justify-center items-center gap-x-6 !min-h-10 !border !border-my-orange !px-4 rounded-3xl", stylles.button
                 )}>

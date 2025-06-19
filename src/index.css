@@ -1,6 +1,5 @@
 @import "tailwindcss";
 
-
 * {
   padding: 0;
   margin: 0;
@@ -30,7 +29,6 @@ html, body, #root {
   -moz-text-size-adjust: 100%;
   -webkit-text-size-adjust: 100%; 
 }
-  
 
 
 input, button, textarea {
@@ -62,10 +60,7 @@ h1, h2, h3, h4, h5, h6 {
   font-size: inherit;
   font-weight: 400; }
 
-
-
   /*-------------@theme-----------*/
-
 @theme {
   --breakpoint-ss-320: 20rem; 
   --breakpoint-ss-350: 21.875rem; 

@@ -2,7 +2,6 @@ import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
 import type { CartPizzaType } from "../../@types"
 import { calcTotalPrice,  findPizzaByIdSizePype } from "../../utils/utils";
 
-
 interface CartState {
     cartPizzas: CartPizzaType[],
     totalPrice: number
@@ -12,7 +11,6 @@ const initialState:CartState = {
     cartPizzas: [],
     totalPrice: 0
 };
-
 
 const cartSlice = createSlice({
     name: 'cart',
@@ -58,7 +56,6 @@ const cartSlice = createSlice({
         }
     }
 });
-
 
 export const {addPizzaCart, removePizza, clearCart, addCountPizza, removeCountPizza, setPizzasCart} = cartSlice.actions;
 

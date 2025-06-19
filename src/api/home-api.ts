@@ -8,7 +8,6 @@ const instance = axios.create({
     },
 });
 
-
 export const pizzasApi = {
     getPizzas(activeCategory: number, sortQuery: string, order: string, search: string, limit: number, currentPage: number) {
         if (search !== '') {

@@ -2,7 +2,6 @@ import smileyImage from '../../assets/image/smiley.png'
 
 const NotFound = () => {
 
-
     return (
         <div className='text-center !pt-43'>
             <div className='max-w-[clamp(70px,46.889px+7.222vw,148px)] !mx-auto !mb-2'>
@@ -13,6 +12,5 @@ const NotFound = () => {
         </div>
     )
 };
-
 
 export default NotFound;

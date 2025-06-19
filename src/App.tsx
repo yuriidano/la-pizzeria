@@ -8,11 +8,8 @@ import { withLazy } from './hoc/withLazy'
 
 const CartPage = lazy(() => import('./pages/Cart/Cart'));
 const PizzaPage = lazy(() => import('./pages/PizzaPage/PizzaPage'));
-
 const CartLazy = withLazy(CartPage);
 const PizzaLazy = withLazy(PizzaPage);
-
-
 
 const App = () => {
 
@@ -24,7 +21,7 @@ const App = () => {
                     <main className='!min-h-full !flex-grow-1 !flex-shrink-1 !flex-basis-full '>
                         <Routes>
                             <Route path='/' element={<Home />} />
-                            <Route path='/cart' element={ <CartLazy /> } />
+                            <Route path='/cart' element={<CartLazy />} />
                             <Route path='/items/:pizzaId' element={<PizzaLazy />} />
                             <Route path='*' element={<NotFound />} />
                         </Routes>

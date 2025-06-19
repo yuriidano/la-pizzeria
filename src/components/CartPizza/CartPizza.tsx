@@ -30,8 +30,6 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
 
     }
 
-
-
     return (
         <div className="flex items-center gap-x-5 justify-between !pt-7.5 !border-t !border-t-gray-200" >
             <div className="basis-[100px] flex flex-col items-center gap-x-4 sm:basis-auto sm:flex-row sm:items-center">
@@ -53,9 +51,8 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
                     </div>
                 </div>
             </div>
-
-            <div className="flex items-center gap-x-[clamp(10px,-20.549px+8.039vw,92px)] ">
-                <div className="flex items-center gap-x-3 " >
+            <div className="ss-420:!flex items-center">
+                <div className="!mb-3 flex items-center gap-x-3 !grow-0 !shrink-0  !basis-8 ss-420:!mb-0" >
                     <button onClick={removePizzaCountHandler}  className={classNames(
                         "w-8 h-8 rounded-full flex justify-center items-center cursor-pointer text-xl duration-300",
                         "hover:bg-my-orange hover:text-white",
@@ -71,13 +68,16 @@ export const CartPizza = ({count, imageUrl, price, title, size, type, id}: CartP
                         <AddIcon />
                     </div>
                 </div>
-                <div className="flex items-center gap-x-1 text-xl font-bold ">
+                <div className="!mb-3 flex items-center justify-center gap-x-1 text-xl font-bold !grow-0 !shrink-0 !basis-[clamp(40px,-31.111px+22.222vw,280px)] ss-420:!mb-0">
                     <span>{totalPricePizza}</span>
                     <span>$</span>
                 </div>
-                <div onClick={removePizzaHandler} className="w-8 h-8 !border-2 !border-gray-300 rounded-full flex justify-center items-center cursor-pointer text-3xl text-gray-300 
-                    hover:text-gray-400 hover:!border-gray-400 uration-300 ">
-                     <AddIcon className="-rotate-45 "/>
+                <div className="flex justify-center ss-420:ustify-start">
+                    <div onClick={removePizzaHandler} className="w-8 h-8 !grow-0 !shrink-0 !basis-8 !border-2 !border-gray-300 rounded-full
+                        flex justify-center items-center cursor-pointer text-3xl text-gray-300 
+                        hover:text-gray-400 hover:!border-gray-400 uration-300 ">
+                        <AddIcon className="-rotate-45 " />
+                    </div>
                 </div>
             </div>
         </div>

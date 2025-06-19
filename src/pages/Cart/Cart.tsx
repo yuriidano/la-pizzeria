@@ -8,8 +8,6 @@ import { calcTotalCount } from '../../utils/utils';
 import { CartEmpty } from '../СartEmpty/СartEmpty';
 import Order from '../../components/Order/Order';
 import { GoBack } from '../../components/Common/Goback/GoBack';
-import { Preloader } from '../../components/Common/Preloader/Preloader';
-
 
 
 const Cart = () => {
@@ -45,7 +43,6 @@ const Cart = () => {
                         cartPizzas.map(pizza => <CartPizza key={pizza.id} {...pizza} />)
                     }
                 </div>
-
                 <div className='flex flex-col items-start gap-y-3.5 justify-between !mb-10 ss-420:flex-row ss-420:items-center '>
                     <div className='flex items-center gap-x-2 '>
                         <span className='text-[clamp(20px,18.815px+0.37vw,24px)]'>Total pizzas:</span>
@@ -56,7 +53,6 @@ const Cart = () => {
                         <span className='text-[clamp(20px,18.815px+0.37vw,24px)] font-bold text-my-orange '>{totalPrice}</span>
                     </div>
                 </div>
-
                 <div className='flex flex-col gap-y-4 items-center ss-420:flex-row ss-420:justify-between ' >
                     <GoBack />
                     <div className='min-w-full ss-420:min-w-[clamp(140px,119.259px+6.481vw,210px)]'><Order /></div>

@@ -21,12 +21,9 @@ export const Header = () => {
     const isMounted = useRef(false);
     const localCartPizzas = window.JSON.parse(localStorage.getItem('cartPizzas') ?? '[]');
     const location = useLocation();
-
     const pathnameString = location.pathname;
     const pathNameCart = pathnameString.includes('cart') && 'cart';
     const pathNamePizza = pathnameString.includes('items') && 'pizza';
-    
-
 
     useEffect(() => {
         dispatch(setPizzasCart(localCartPizzas))
@@ -38,8 +35,6 @@ export const Header = () => {
         }
         isMounted.current = true;
     }, [cartPizzas]);
-
-
 
     return (
         <header className="!flex !items-center justify-between gap-x-5 min-h-[clamp(70px,45.704px+7.593vw,152px)] !border-b  !border-gray-200 ss-320:!py-3.5 ss-320:items-start">

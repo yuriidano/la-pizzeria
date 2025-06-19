@@ -1,7 +1,6 @@
 import type { CartPizzaType, PizzaType } from "../@types";
 
 // home slice
-
 export const calcPizzaPriceSize = (pizzas: PizzaType[], id: number, size: number) => {
     const pizzasResult = pizzas.map(pizza => {
         if (pizza.id === id && pizza.currentSize === 26 && size === 30) {
@@ -38,10 +37,7 @@ export const calcPizzaPriceType = (pizzas: PizzaType[], id: number, type: number
     return pizzasResult;
 };
 
-
-
 // cart slice
-
 export const calcTotalPrice = (cartPizzas: CartPizzaType[]) => {
     return  cartPizzas.reduce((sum, item) => item.price * item.count + sum, 0);
 }

@@ -4,7 +4,6 @@ import emptyImage from '../../assets/image/empty.jpeg'
 export const CartEmpty = () => {
 
     return (
-
         <div className='flex flex-col items-center justify-center !pt-40'>
             <div className='flex items-center gap-x-2.5 !mb-8.5 xl:!mb-2.5'>
                 <h2 className='!text-[clamp(20px,16.444px+1.111vw,32px)] !font-bold '>The basket is empty</h2>

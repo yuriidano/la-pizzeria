@@ -1,10 +1,9 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { useAppSelector } from "../../../redux/store";
 import { selectCartPizza } from "../../../redux/cart/cartSelectors";
 import { useAddOrderMutation } from "../../../api/api";
 import type { OrderType } from "../../../@types";
-import classNames from "classnames";
 
 type PropsType = {
     setOpenChild: (value: boolean) => void,
@@ -24,10 +23,8 @@ type FormType = {
 export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
     const { register, handleSubmit, setValue, trigger, reset, watch, formState: { errors } } = useForm<FormType>();
     const cartPizzas = useAppSelector(selectCartPizza);
-    const [createOrder, { data }] = useAddOrderMutation();
+    const [createOrder] = useAddOrderMutation();
     const isMountFormData = useRef(false);
-
-
 
     useEffect(() => {
         try {
@@ -42,7 +39,6 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
         }
     }, []);
 
-
     const formDataStorage = watch();
     useEffect(() => {
         if (isMountFormData.current) {
@@ -53,12 +49,11 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
 
     }, [formDataStorage]);
 
-
     const onSubmit: SubmitHandler<FormType> = async (formData) => {
         const dataObjApi: OrderType = { ...formData };
         dataObjApi.items = cartPizzas;
         try {
-            await  createOrder(dataObjApi);
+            await createOrder(dataObjApi);
             setOpenChild(true);
             reset()
         } catch (error) {
@@ -195,7 +190,7 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
                         <button onClick={nextInputHandler} className="text-white !min-h-[clamp(32px,28.444px+1.111vw,44px)] min-w-full bg-my-orange rounded-3xl hover:bg-orange-600 duration-300 
                         ss-600:min-w-45"
                         >
-                        Next
+                            Next
                         </button>
                     }
                     {step === 3 &&

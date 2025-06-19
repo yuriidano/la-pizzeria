@@ -9,7 +9,7 @@ export const SkeletonPizza = () => {
             <div className='!mb-5.5'>
                 <Skeleton variant="text" width={250} height={25} />
             </div>
-            <div  className='!mb-4'>
+            <div className='!mb-4'>
                 <Skeleton variant="rounded" width={250} height={76} />
             </div>
             <div>

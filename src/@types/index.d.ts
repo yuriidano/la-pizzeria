@@ -23,7 +23,6 @@ export type CartPizzaType = {
     count: number
 }
 
-
 export type OrderType = {
     firstName?: string,
     lastName?: string,

@@ -17,7 +17,6 @@ export const Sort = () => {
         setIsOpenPopap(false)
     }
 
-
     const list = [
         { name: 'alphabet (asc)', sortProperty: 'title' },
         { name: 'alphabet (desc)', sortProperty: 'title' },
@@ -30,11 +29,11 @@ export const Sort = () => {
     const popapRef = useRef<HTMLDivElement>(null);
 
     useEffect(() => {
-        function popapCloseListener (e: MouseEvent) {
-            if(e.target instanceof Node && popapRef.current && !popapRef.current.contains(e.target)) {
+        function popapCloseListener(e: MouseEvent) {
+            if (e.target instanceof Node && popapRef.current && !popapRef.current.contains(e.target)) {
                 setIsOpenPopap(false);
             }
-        }   
+        }
         document.addEventListener('click', popapCloseListener);
 
         return () => document.removeEventListener('click', popapCloseListener);
@@ -43,7 +42,7 @@ export const Sort = () => {
     return (
         <div ref={popapRef} className='relative min-w-50'>
             <div className='flex items-center gap-x-1.5 md:justify-end'>
-                <span><PlayArrowIcon className={classNames(stylles.arrowIcon, {[stylles.arrowIconActive]: isOpenPopap})} /></span>
+                <span><PlayArrowIcon className={classNames(stylles.arrowIcon, { [stylles.arrowIconActive]: isOpenPopap })} /></span>
                 <div className='flex items-center gap-x-2'>
                     <span className='font-bold'>Sort by:</span>
                     <span onClick={() => setIsOpenPopap(prev => !prev)} className='text-my-orange underline cursor-pointer'>{activeSort?.name}</span>
