@@ -84,17 +84,13 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
                             <label htmlFor="firstName" className="text-gray-400 !mb-2">First name</label>
                             <input id="firstName" {...register('firstName', {
                                 maxLength: { value: 10, message: 'max simbols 10' },
-                                required: 'first name is required',
-                                pattern: {
-                                    value: /^[A-Za-z\s'-]+$/,
-                                    message: "First name can only contain English letters, spaces, apostrophes, or hyphens",
-                                }
+                                required: 'first name is required'
                             })} className="text-gray-400 !border !border-gray-400 min-h-[clamp(32px,27.259px+1.481vw,48px)] rounded-xl !px-2.5 min-w-67.5
                             ss-420:min-w-92.5 ss-600:min-w-137.5 md:min-w-160
                     
                     " />
                             {errors.firstName &&
-                                <span className="text-red-400 absolute -bottom-5 left-0 ">{errors.firstName.message}</span>
+                                <span className="text-red-400 absolute -bottom-6 left-0 ">{errors.firstName.message}</span>
                             }
 
                         </div>
@@ -102,15 +98,11 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
                             <label htmlFor="lastName" className="text-gray-400 !mb-2">Last name</label>
                             <input id="lastName" {...register('lastName', {
                                 maxLength: { value: 10, message: 'max simbols 10' },
-                                required: 'last name is required',
-                                pattern: {
-                                    value: /^[A-Za-zА-ЩЬЮЯҐЄІЇа-щьюяґєії\s'-]+$/,
-                                    message: "lastName name can only contain Ukrainian letters, spaces, apostrophes, or hyphens",
-                                }
+                                required: 'last name is required'
                             })} className="text-gray-400 !border !border-gray-400 min-h-[clamp(32px,27.259px+1.481vw,48px)] rounded-xl !px-2.5 min-w-67.5
                             ss-420:min-w-92.5 ss-600:min-w-137.5 md:min-w-160" />
                             {errors.lastName &&
-                                <span className="text-red-400 absolute -bottom-5 left-0">{errors.lastName.message}</span>
+                                <span className="text-red-400 absolute -bottom-6 left-0">{errors.lastName.message}</span>
                             }
                         </div>
                     </>
@@ -149,7 +141,7 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
                         </div>
                         {/* Показ помилки під інпутом */}
                         {errors.phone && (
-                            <p className="text-red-400 absolute -bottom-5 left-0 ">{errors.phone.message}</p>
+                            <p className="text-red-400 absolute -bottom-11 left-0 ss-600:-bottom-6">{errors.phone.message}</p>
                         )}
                     </div>
                 }
@@ -160,18 +152,18 @@ export const OrderForm = ({ setOpenChild, setStep, step }: PropsType) => {
                             className="text-gray-400 !border !border-gray-400 min-h-[clamp(32px,27.259px+1.481vw,48px)] rounded-xl !px-2.5 min-w-67.5
                             ss-420:min-w-92.5 ss-600:min-w-137.5 md:min-w-160" />
                         {errors.address &&
-                            <span className="text-red-400 absolute -bottom-5 left-0">{errors.address.message}</span>
+                            <span className="text-red-400 absolute -bottom-6 left-0 ss-600:-bottom-6">{errors.address.message}</span>
                         }
                     </div>
                 }
                 {step === 3 &&
                     <div className="inline-flex flex-col relative">
-                        <label htmlFor="adress" className="text-gray-400 !mb-2">Email</label>
-                        <input id="adress" {...register('email', { required: 'email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, message: 'please enter a valid email.' } },)}
+                        <label htmlFor="email" className="text-gray-400 !mb-2">Email</label>
+                        <input id="email" {...register('email', { required: 'email is required', pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/, message: 'please enter a valid email.' } },)}
                             className="text-gray-400 !border !border-gray-400 min-h-[clamp(32px,27.259px+1.481vw,48px)] rounded-xl !px-2.5 min-w-67.5
                             ss-420:min-w-92.5 ss-600:min-w-137.5 md:min-w-160" />
                         {errors.email &&
-                            <span className="text-red-400 absolute -bottom-5 left-0">{errors.email.message}</span>
+                            <span className="text-red-400 absolute -bottom-6 left-0">{errors.email.message}</span>
                         }
                     </div>
                 }

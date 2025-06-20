@@ -25,7 +25,7 @@ const Cart = () => {
     return (
         <div className='!pt-[clamp(50px,11.63px+5.741vw,92px)] !pb-[clamp(20px,-3.704px+7.407vw,100px)] '>
             <div className='max-w-235.5 !mx-auto'>
-                <div className='flex items-center justify-between  sm:!mb-22 xl:!mb-7.5'>
+                <div className='flex items-center justify-between !mb-[clamp(16px,2px+4.375vw,30px)] sm:!mb-22 xl:!mb-7.5'>
                     <div className='flex items-center gap-x-3'>
                         <div className='!w-7 !h-7 '>
                             <img className='max-w-full ' src={cartImage} alt="cartImage" />

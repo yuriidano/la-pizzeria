@@ -90,7 +90,9 @@ const Home = () => {
                             <div className="flex flex-wrap justify-center gap-x-10 gap-y-16 md:justify-around 2xl:justify-start">{pizzasItems}</div>
                         }
                     </div>
-                    <Pagination count={pageCount} page={currentPage} onChange={handleChange} />
+                    <div className="flex justify-center lg:justify-start ">
+                        <Pagination count={pageCount} page={currentPage} onChange={handleChange} />
+                    </div>
                 </>
             }
         </div>
