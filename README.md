@@ -4,9 +4,23 @@
 
 # 🍕 La Pizzeria
 
+[🌐 Live Demo](https://la-pizzeria-yurii-dano.vercel.app/)
+
 **La Pizzeria** is a modern single-page pizza ordering application featuring a responsive interface, interactive cart, step-by-step order process, and real-time pricing.
 
-[🌐 Live Demo](https://la-pizzeria-yurii-dano.vercel.app/)
+## 👨‍💻 About This Project
+I implemented this project entirely on my own, from layout and logic to full front-end implementation. The project demonstrates the functionality of online pizza ordering as part of my portfolio.
+
+The user interface design was based on an existing concept, but the entire layout structure, adaptability, logic, and integration were implemented by me from scratch.
+
+It uses a mock API service ([mockapi.io](https://mockapi.io/)) to simulate pizza items, cart management, and order processing, focusing on frontend logic and user experience.
+
+I implemented:
+  - Step-by-step order form with validation and progress tracking
+  - State management using Redux Toolkit (cart, order form)
+  - Saving form state, active step in localStorage
+  - Lazy loading for less critical pages (pizza details, cart)
+  - Fully responsive layout with Tailwind CSS
 
 ---
 
@@ -41,7 +55,9 @@
 - ↕️ Sort by alphabet, rating, type and price
 - 🔎 Optimized search input using `lodash.debounce` to reduce server requests and unnecessary re-renders
 - 🔃 Lazy loading for Cart and Pizza pages
-- 🌐 API integration using [MockAPI](https://mockapi.io/)
+- 🔗 Integration with the mockapi.io API service — [mockapi.io](https://mockapi.io/), including:
+    - Retrieving, sorting and filtering pizzas іdata
+    - Creating and processing orders
 - 🧑‍💻 Fully responsive and mobile-friendly design
 
 ---
@@ -100,7 +116,7 @@ cd la-pizzeria
 npm install
 npm run dev
 
-
+```
 
 ## 🔗 Links
 
